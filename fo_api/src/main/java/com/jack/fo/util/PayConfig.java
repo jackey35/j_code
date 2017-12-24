@@ -16,6 +16,8 @@ public class PayConfig {
 	private String wxMchId;
 	private String wxPrivateKey;
 	private String wxPreOrder;
+	private String devVerify;
+	private String prodVerify;
 	
 	public String getNotifyUrl() {
 		return notifyUrl;
@@ -76,5 +78,17 @@ public class PayConfig {
 	}
 	public void setAliGateway(String aliGateway) {
 		this.aliGateway = aliGateway;
+	}
+	public String getDevVerify() {
+		return devVerify;
+	}
+	public void setDevVerify(String devVerify) {
+		this.devVerify = devVerify;
+	}
+	public String getProdVerify() {
+		return prodVerify;
+	}
+	public void setProdVerify(String prodVerify) {
+		this.prodVerify = prodVerify;
 	}
 }

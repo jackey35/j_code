@@ -1,6 +1,7 @@
 package com.jack.fo.util;
 
 public class PageUtil {
+	public static final int PAGE_SIZE=2;
 	/**
      * 计算分页总页数
      * @param count 总记录数

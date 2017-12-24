@@ -14,19 +14,18 @@ import com.jack.fo.model.AppProduct;
 import com.jack.fo.util.ResponseUtil;
 
 @RestController
-@RequestMapping("/p")
 public class ProductController {
 	@Autowired
 	private AppProductRepository appProductRepository;
 	
-	@RequestMapping("/list")
+	@RequestMapping("/p/list")
 	public Map<String,Object> getProductByCateCode(int cateCode){
 		List<AppProduct> list = appProductRepository.getAppProductByCateCode(cateCode);
 		
 		return ResponseUtil.getResponseMap(1, (list!=null&&list.size()>0)?list.size():0,list,"success");
 	} 
 	
-	@RequestMapping("/save")
+	@RequestMapping("/p/save")
 	public void saveAppProduct(AppProduct appProduct) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		appProduct.setCreateDt(sdf.format(new Date()));
@@ -34,9 +33,9 @@ public class ProductController {
 		appProductRepository.save(appProduct);
 	}
 	
-	@RequestMapping("/get")
-	public AppProduct getAppProductById(Long id) {
-		
-		return appProductRepository.findOne(id);
+	@RequestMapping("/p/get")
+	public Map<String,Object> getAppProductById(Long id) {
+		AppProduct product = appProductRepository.findOne(id);
+		return ResponseUtil.getResponseObject(1, product, "success");
 	}
 }
