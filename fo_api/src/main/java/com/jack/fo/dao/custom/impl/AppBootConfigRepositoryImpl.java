@@ -17,9 +17,9 @@ public class AppBootConfigRepositoryImpl implements AppBootConfigRepositoryCusto
 	private EntityManager entityManager;
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AppBootConfig> getAppBootConfigBy(int type) {
+	public List<AppBootConfig> getAppBootConfigBy(int type,boolean flag) {
 		Query query = entityManager.createNativeQuery("select id,boot_url,status,type,create_dt,update_dt "
-				+ "from app_boot_config where status=1 and type="+type+" order by id desc",AppBootConfig.class);
+				+ "from app_boot_config where type="+type+(flag?" and status=1":"")+" order by id desc limit 0,30",AppBootConfig.class);
 		
 		return (List<AppBootConfig>)query.getResultList();
 	}

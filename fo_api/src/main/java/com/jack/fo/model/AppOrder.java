@@ -33,6 +33,7 @@ public class AppOrder implements Serializable {
 	private String orderStr;
 	private int payType;
 	private String outOrderNo;
+	private String nickName;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -128,5 +129,13 @@ public class AppOrder implements Serializable {
 	}
 	public void setOutOrderNo(String outOrderNo) {
 		this.outOrderNo = outOrderNo;
+	}
+	
+	@Transient
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 }

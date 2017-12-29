@@ -141,6 +141,6 @@ public class UserController {
 		request.setAttribute("pageName", page);
 		request.setAttribute("pageCount", PageUtil.getPage(count, PageUtil.PAGE_SIZE));
 		
-		return "user/user";
+		return "user/list";
 	}
 }

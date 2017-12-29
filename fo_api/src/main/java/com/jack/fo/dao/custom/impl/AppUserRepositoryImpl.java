@@ -83,4 +83,18 @@ public class AppUserRepositoryImpl implements AppUserRepositoryCustom {
 		return 0;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public AppUser getAppUserByUserId(long userId) {
+		Query query = entityManager.createNativeQuery("select id,nick_name,head_url,open_id,reg_time,reg_channel,type,"
+				+ "reg_ip,create_dt,update_dt "
+				+ "from app_user where id="+userId+" order by id desc",AppUser.class);
+		
+		List<AppUser>  list = (List<AppUser>)query.getResultList();
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		 return null;
+	}
+
 }

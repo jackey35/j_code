@@ -18,6 +18,7 @@ public class PayConfig {
 	private String wxPreOrder;
 	private String devVerify;
 	private String prodVerify;
+	private String filePath;
 	
 	public String getNotifyUrl() {
 		return notifyUrl;
@@ -90,5 +91,11 @@ public class PayConfig {
 	}
 	public void setProdVerify(String prodVerify) {
 		this.prodVerify = prodVerify;
+	}
+	public String getFilePath() {
+		return filePath;
+	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 }

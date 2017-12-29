@@ -48,7 +48,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 		<!-- End:left -->
 		<div id="main">
 			<br />
-			<div class="breadcrumb"><font>新增商户</font><font color="red">${msg }</font>
+			<div class="breadcrumb"><font>修改密码</font><font color="red">${msg }</font>
 		     </div>
 		     <div id="addDiv">
 		     	<form id="form" action="<%=request.getContextPath() %>/admin/updatePwd.do" method="post">

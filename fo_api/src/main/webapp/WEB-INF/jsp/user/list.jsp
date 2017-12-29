@@ -78,11 +78,9 @@ tr:nth-child(odd){background:#f6f6f6;}
 		<jsp:include page="../common/navigation.jsp"></jsp:include>
 		<!-- End:left -->
 		<div id="main">
-			<div class=" mB15 mT10 ovh">
-				<ul class="fl wtypes ovh">
-				</ul>
-			</div>
 			<br />
+			<div class="breadcrumb"><font>会员列表</font>
+		     </div>
 			<form action="<%=request.getContextPath() %>/admin/user/list.do"  method="get">
 			<div class="dateSelect mB15 ovh" id="queryUser">
 				<div class="fl ftD mB8">
@@ -99,8 +97,25 @@ tr:nth-child(odd){background:#f6f6f6;}
 						<label>渠道
 						<select style='width: 100px;' class="txtc" name="regChannel">
 							<option value="0">请求选择</option>
-                            <option value="1" <c:if test="${user.regChannel==1}">selected</c:if>>应用宝</option>
-                            <option value="2" <c:if test="${user.regChannel==2}">selected</c:if>>91助手</option>
+                            <option value="1" <c:if test="${user.regChannel==1}">selected</c:if>>百度手助</option>
+                            <option value="2" <c:if test="${user.regChannel==2}">selected</c:if>>360</option>
+                            <option value="3" <c:if test="${user.regChannel==3}">selected</c:if>>华为</option>
+                            <option value="4" <c:if test="${user.regChannel==4}">selected</c:if>>小米</option>
+                            <option value="5" <c:if test="${user.regChannel==5}">selected</c:if>>OPPO</option>
+                            <option value="6" <c:if test="${user.regChannel==6}">selected</c:if>>VIVO</option>
+                            <option value="7" <c:if test="${user.regChannel==7}">selected</c:if>>魅族</option>
+                            <option value="8" <c:if test="${user.regChannel==8}">selected</c:if>>酷派</option>
+                            <option value="9" <c:if test="${user.regChannel==9}">selected</c:if>>联想</option>
+                            <option value="10" <c:if test="${user.regChannel==10}">selected</c:if>>应用宝</option>
+                            <option value="11" <c:if test="${user.regChannel==11}">selected</c:if>>安智</option>
+                            <option value="12" <c:if test="${user.regChannel==12}">selected</c:if>>PP</option>
+                            <option value="13" <c:if test="${user.regChannel==13}">selected</c:if>>搜狗</option>
+                            <option value="14" <c:if test="${user.regChannel==14}">selected</c:if>>三星</option>
+                            <option value="15" <c:if test="${user.regChannel==15}">selected</c:if>>锤子</option>
+                            <option value="16" <c:if test="${user.regChannel==16}">selected</c:if>>金立</option>
+                            <option value="17" <c:if test="${user.regChannel==17}">selected</c:if>>应用汇</option>
+                            <option value="18" <c:if test="${user.regChannel==18}">selected</c:if>>木蚂蚁</option>
+                            <option value="19" <c:if test="${user.regChannel==19}">selected</c:if>>优亿</option>
 						</select>
 						</label>
 					</div>
@@ -109,7 +124,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 				<div class="ft fl gray"></div>
 				<div class="fl ftD">
 					<div class="ftDw cfix">
-						<p class="fl">检测日期</p>
+						<p class="fl">注册日期</p>
 						<input type="text" class="txte gray fl" name="startDt" value="${startDt }"/>
 					</div>
 				</div>
@@ -117,7 +132,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 				<div class="ft fl gray"></div>
 				<div class="fl ftD">
 					<div class="ftDw cfix">
-						<p class="fl">检测日期</p>
+						<p class="fl">注册日期</p>
 						<input type="text" class="txte gray fl" name="endDt"  value="${endDt }"/>
 					</div>
 				</div>
@@ -140,7 +155,26 @@ tr:nth-child(odd){background:#f6f6f6;}
 							<td>${varStatus.index+1}</td>
 							<td>${user.nickName}</td>
 							<td>${user.regTime}</td>
-							<td>${user.regChannel}</td>
+							<td><c:if test="${user.regChannel==1}">百度手助</c:if>
+								<c:if test="${user.regChannel==2}">360</c:if>
+								<c:if test="${user.regChannel==3}">华为</c:if>
+								<c:if test="${user.regChannel==4}">小米</c:if>
+								<c:if test="${user.regChannel==5}">OPPO</c:if>
+								<c:if test="${user.regChannel==6}">VIVO</c:if>
+								<c:if test="${user.regChannel==7}">魅族</c:if>
+								<c:if test="${user.regChannel==8}">酷派</c:if>
+								<c:if test="${user.regChannel==9}">联想</c:if>
+								<c:if test="${user.regChannel==10}">应用宝</c:if>
+								<c:if test="${user.regChannel==11}">安智</c:if>
+								<c:if test="${user.regChannel==12}">PP</c:if>
+								<c:if test="${user.regChannel==13}">搜狗</c:if>
+								<c:if test="${user.regChannel==14}">三星</c:if>
+								<c:if test="${user.regChannel==15}">锤子</c:if>
+								<c:if test="${user.regChannel==16}">金立</c:if>
+								<c:if test="${user.regChannel==17}">应用汇</c:if>
+								<c:if test="${user.regChannel==18}">木蚂蚁</c:if>
+								<c:if test="${user.regChannel==19}">优亿</c:if>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>

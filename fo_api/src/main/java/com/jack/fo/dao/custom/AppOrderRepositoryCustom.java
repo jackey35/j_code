@@ -10,4 +10,7 @@ public interface AppOrderRepositoryCustom {
 	public int countAppOrderByUidType(long uid,int type);
 	
 	public List<AppOrder> getAppOrderByStatusType(int type);
+	
+	public List<AppOrder> getAppOrderByPname(String pName,String startDt,String endDt,int start,int limit);
+	public int countAppOrderByPname(String pName,String startDt,String endDt);
 }
