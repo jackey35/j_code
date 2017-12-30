@@ -127,7 +127,7 @@ public class ShareConfigController {
 			json.put("share", share);
 		}else {
 			json.put("error", 1);
-			json.put("boot", null);
+			json.put("share", null);
 		}
 		 ResponseUtil.response(json, response);
 	}

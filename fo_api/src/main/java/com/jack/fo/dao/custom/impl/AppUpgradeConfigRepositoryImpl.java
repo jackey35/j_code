@@ -25,4 +25,26 @@ public class AppUpgradeConfigRepositoryImpl implements AppUpgradeConfigRepositor
 		return (List<AppUpgradeConfig>)query.getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<AppUpgradeConfig> getAppUpgradeConfigList(int start,int limit) {
+		Query query = entityManager.createNativeQuery("select id,version_no,memo,download_url,type,status, channel,create_dt,update_dt "
+				+ "from app_upgrade_config order by id desc limit "+start+","+limit,AppUpgradeConfig.class);
+		
+		return (List<AppUpgradeConfig>)query.getResultList();
+	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public int cntAppUpgradeConfig() {
+		Query query = entityManager.createNativeQuery("select count(1) "
+				+ "from app_upgrade_config ");
+		List list = query.getResultList();
+		if(list != null && list.size() > 0) {
+			return Integer.valueOf(list.get(0).toString());
+		}
+		
+		return 0;
+	}
+
 }

@@ -8,4 +8,7 @@ import com.jack.fo.model.AppUpgradeConfig;
 @Repository
 public interface AppUpgradeConfigRepositoryCustom {
 	public List<AppUpgradeConfig> getAppUpgradeConfigByTypeChannel(int type,int channel);
+	
+	public List<AppUpgradeConfig> getAppUpgradeConfigList(int start,int limit);
+	public int cntAppUpgradeConfig();
 }

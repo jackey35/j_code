@@ -15,7 +15,7 @@
 		      <li id="_mid_"><a href="/admin/boot/list.do">启动页管理</a></li>
               <li id="_mid_"><a href="/admin/mb/list.do">蒙版管理</a></li>
               <li id="_mid_"><a href="/admin/share/list.do">分享文案管理</a></li>
-              <li id="_mid_"><a href="/activemq/consumer/list.do">新版本上传管理</a></li>
+              <li id="_mid_"><a href="/admin/upc/list.do">渠道包管理</a></li>
 		  </ul>
 		</div>
 				<div class="l-open">
