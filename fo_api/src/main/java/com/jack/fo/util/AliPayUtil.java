@@ -51,7 +51,7 @@ public class AliPayUtil {
 
 	public boolean validateOrderBack(Map<String, String> paramsMap){
 		try {
-			return AlipaySignature.rsaCheckV2(paramsMap,payConfig.getAliPublicKey(), "utf-8","RSA2");
+			return AlipaySignature.rsaCheckV1(paramsMap,payConfig.getAliPublicKey(), "utf-8","RSA2");
 		} catch (AlipayApiException e) {
 			e.printStackTrace();
 			return false;

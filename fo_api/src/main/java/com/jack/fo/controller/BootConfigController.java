@@ -98,9 +98,9 @@ public class BootConfigController {
 	@RequestMapping("/admin/boot/upload")
 	public void upload(@RequestParam MultipartFile image,HttpServletResponse response) {
 		try {
-			FileUtil.uplaodFile(image, payConfig);
-			String fileSuff = FilenameUtils.getExtension(image.getOriginalFilename());
 			String fileName = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+			FileUtil.uplaodFile(image, payConfig,fileName);
+			String fileSuff = FilenameUtils.getExtension(image.getOriginalFilename());
             Map<String, Object> json = new HashMap<String, Object>();
             json.put("error", 0);
             json.put("url", "");
@@ -136,9 +136,9 @@ public class BootConfigController {
 	@RequestMapping("/admin/mb/upload")
 	public void mbUpload(@RequestParam MultipartFile image,HttpServletResponse response) {
 		try {
-			FileUtil.uplaodFile(image, payConfig);
-			String fileSuff = FilenameUtils.getExtension(image.getOriginalFilename());
 			String fileName = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+			FileUtil.uplaodFile(image, payConfig,fileName);
+			String fileSuff = FilenameUtils.getExtension(image.getOriginalFilename());
            
             Map<String, Object> json = new HashMap<String, Object>();
             json.put("error", 0);

@@ -90,7 +90,8 @@ public class ShareConfigController {
 	public void upload(@RequestParam MultipartFile image,HttpServletResponse response) {
 		Map<String, Object> json = new HashMap<String, Object>();
 		try {
-			String fileUrl = FileUtil.uplaodFile(image, payConfig);
+			String fileName = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+			String fileUrl = FileUtil.uplaodFile(image, payConfig,fileName);
 			
 			
             json.put("error", 0);

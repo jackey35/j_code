@@ -94,7 +94,6 @@ tr:nth-child(odd){background:#f6f6f6;}
     		var channel = $("#channel").val();
     		var downloadUrl = $("#downloadUrl").val();
     		var type = $("#type").val();
-    		alert(channel);
     		if(versionNo=='' || channel==''||channel==0){
     			alert('请填写版本号和渠道');
     			return;

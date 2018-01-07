@@ -158,7 +158,7 @@ public class OrderController {
 	}
 	@ResponseBody
 	@RequestMapping("/order/ali_payback")
-	public String aliPayBack(HttpServletRequest request,AliPayOrderBack payOrderBack) {
+	public String aliPayBack(HttpServletRequest request,AliPayOrderBack aliPayOrderBack) {
 		Map<String, String> paramsMap = new HashMap<String,String>();
 		Enumeration<String> reqParameters = request.getParameterNames();
 		String paraName = "";
@@ -172,25 +172,26 @@ public class OrderController {
 			String paramStr = URLDecoder.decode(paramsMap.toString(),"utf_8");
 			logger.info("paramStr="+paramStr);
 			
-			if(!aliPayUtil.validateOrderBack(paramsMap)){
-				return "error,验签不过";
-			}
-			String orderNo = payOrderBack.getOut_trade_no();
+			/*if(!aliPayUtil.validateOrderBack(paramsMap)){
+				logger.info("sign is err,order_no="+aliPayOrderBack.getOut_trade_no());
+				return "fail";
+			}*/
+			String orderNo = aliPayOrderBack.getOut_trade_no();
 			AppOrder order = appOrderRepository.getAppOrderByOrderNo(orderNo);
 			if(order == null /*|| payOrderBack.getTotal_amount() != order.getOrderPrice()*/
 					|| order.getStatus() == 1) {
-				return "error,通知订单异常或金额不对";
+				return "fail";
 			}
 			order.setStatus(1);
-			order.setPayDt(payOrderBack.getNotify_time());
-			order.setOutOrderNo(payOrderBack.getTrade_no());
+			order.setPayDt(aliPayOrderBack.getNotify_time());
+			order.setOutOrderNo(aliPayOrderBack.getTrade_no());
 			order.setUpdateDt(sdf.format(new Date()));
 			 
 			appOrderRepository.save(order);
 			return "success";
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
-		    return "error,解析异常";
+		    return "fail";
 		}
 		
 	}

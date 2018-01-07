@@ -19,7 +19,7 @@ public class AppProduct implements Serializable {
 	private long id;
 	private String gfDesc;
 	private int price;
-	private String cateCode;
+	private int cateCode;
 	private String pName;
 	private String pPic;
 	private int status;
@@ -45,10 +45,10 @@ public class AppProduct implements Serializable {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public String getCateCode() {
+	public int getCateCode() {
 		return cateCode;
 	}
-	public void setCateCode(String cateCode) {
+	public void setCateCode(int cateCode) {
 		this.cateCode = cateCode;
 	}
 	public int getStatus() {

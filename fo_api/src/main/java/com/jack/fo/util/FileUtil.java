@@ -1,9 +1,8 @@
 package com.jack.fo.util;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
+
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -17,7 +16,7 @@ public class FileUtil {
 	private static Logger logger = LoggerFactory.getLogger("FileUtil");
 	private static List<String> allowedFile = Arrays.asList("image/jpeg", "image/gif", "image/png", "image/bmp","image/pjpeg","image/x-png");
 	
-	public static String uplaodFile(@RequestParam MultipartFile image,PayConfig payConfig) throws Exception {
+	public static String uplaodFile(@RequestParam MultipartFile image,PayConfig payConfig,String fileName) throws Exception {
 		logger.info("Try to upload file, filename="+image.getOriginalFilename()+",filetype="+image.getContentType());
         if (image.isEmpty())
             throw new Exception("没有文件被上传！");
@@ -26,7 +25,7 @@ public class FileUtil {
         
         logger.info("upload a screenshot!");
         String fileSuff = FilenameUtils.getExtension(image.getOriginalFilename());
-        String fileName = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+        
         String filePath = payConfig.getFilePath();
         String fileUrl = filePath+fileName+"."+fileSuff;
         File saveFile = new File(fileUrl);

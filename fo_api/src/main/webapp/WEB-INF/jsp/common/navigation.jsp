@@ -6,7 +6,7 @@
 			<ul>
 			<li id="_mid_"><a href="/admin/user/list.do">会员管理</a></li>
 			<li id="_mid_"><a href="/admin/order/list.do">支付流水</a></li>
-			<li id="_mid_"><a href="/minute/rank.do">商品管理</a></li>
+			<li id="_mid_"><a href="/admin/p/list.do">符列表</a></li>
 			</ul>
 		</div>
 		<div class="l-open">
