@@ -25,6 +25,14 @@ public class AppProduct implements Serializable {
 	private int status;
 	private String createDt;
 	private String updateDt;
+	private String icon;
+	
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {

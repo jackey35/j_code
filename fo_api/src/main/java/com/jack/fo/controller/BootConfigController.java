@@ -45,6 +45,7 @@ public class BootConfigController {
 		AppBootConfig bootConfig = null;
 		if(list != null && list.size()>0) {
 			bootConfig = list.get(0);
+			bootConfig.setBootPay(payConfig.getBootPay());
 		}
 		return ResponseUtil.getResponseObject(1, bootConfig, "");
 	}
@@ -55,6 +56,7 @@ public class BootConfigController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		bootConfig.setCreateDt(sdf.format(new Date()));
 		bootConfig.setUpdateDt(sdf.format(new Date()));
+		bootConfig.setType(1);
 		
 		appBootConfigRepository.save(bootConfig);
 	}
@@ -87,7 +89,7 @@ public class BootConfigController {
 	
 	@RequestMapping("/admin/boot/list")
 	public String getAppBootConfigList(ModelMap map ,HttpServletRequest request) {
-		List<AppBootConfig> list = appBootConfigRepository.getAppBootConfigBy(0,false);
+		List<AppBootConfig> list = appBootConfigRepository.getAppBootConfigBy(1,false);
 		
 		map.put("list", list);
 		
@@ -108,7 +110,7 @@ public class BootConfigController {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             AppBootConfig bootConfig = new AppBootConfig();
             bootConfig.setBootUrl("http://www.5818cp.com/images/"+fileName+"."+fileSuff);
-            bootConfig.setType(0);
+            bootConfig.setType(1);
             bootConfig.setStatus(1);
 	    		bootConfig.setCreateDt(sdf.format(new Date()));
 	    		bootConfig.setUpdateDt(sdf.format(new Date()));
@@ -125,7 +127,7 @@ public class BootConfigController {
 	
 	@RequestMapping("/admin/mb/list")
 	public String getAppMbConfigList(ModelMap map ,HttpServletRequest request) {
-		List<AppBootConfig> list = appBootConfigRepository.getAppBootConfigBy(1,false);
+		List<AppBootConfig> list = appBootConfigRepository.getAppBootConfigBy(2,false);
 		
 		map.put("list", list);
 		
@@ -147,7 +149,7 @@ public class BootConfigController {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             AppBootConfig bootConfig = new AppBootConfig();
             bootConfig.setBootUrl("http://www.5818cp.com/images/"+fileName+"."+fileSuff);
-            bootConfig.setType(1);
+            bootConfig.setType(2);
             bootConfig.setStatus(1);
 	    		bootConfig.setCreateDt(sdf.format(new Date()));
 	    		bootConfig.setUpdateDt(sdf.format(new Date()));

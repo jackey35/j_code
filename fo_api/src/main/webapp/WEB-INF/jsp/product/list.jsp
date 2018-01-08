@@ -95,7 +95,8 @@ tr:nth-child(odd){background:#f6f6f6;}
 					<tr>
 						<th style="width: 80px;">序号</th>
 						<th style="width: 200px;">符名称</th>
-						<th style="width: 200px;">符图片</th>
+						<th style="width: 200px;">符小图</th>
+						<th style="width: 200px;">符大图</th>
 						<th style="width: 200px;">符价格</th>
 						<th style="width: 200px;">符描述</th>
 						<th style="width: 100px;">符种类</th>
@@ -106,6 +107,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 						<tr>
 							<td>${varStatus.index+1}</td>
 							<td>${p.pName}</td>
+							<td><img src="${p.icon}"/></td>
 							<td><img src="${p.pPic}"/></td>
 							<td>${p.price}</td>
 							<td>${p.gfDesc}</td>

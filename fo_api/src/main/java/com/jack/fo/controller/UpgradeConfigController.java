@@ -32,14 +32,13 @@ public class UpgradeConfigController {
 	@RequestMapping("/upc/upgrade")
 	public Map<String,Object> isNeedUpgrade(int type,String versionNo,int channel) {
 		List<AppUpgradeConfig> list = AppUpgradeConfigRepository.getAppUpgradeConfigByTypeChannel(type, channel);
-		boolean flag = false;
 		if(list != null && list.size()>0) {
 			AppUpgradeConfig upgradeConfig = list.get(0);
 			if(!versionNo.equals(upgradeConfig.getVersionNo())) {
-				flag = true;
+				return ResponseUtil.getResponseObject(1, upgradeConfig, "");
 			}
 		}
-		return ResponseUtil.getResponseObject(1, flag, "");
+		return ResponseUtil.getResponseObject(0, null, "");
 	}
 	
 	@ResponseBody
@@ -47,11 +46,14 @@ public class UpgradeConfigController {
 	public void save(String versionNo,String memo,String downloadUrl,Integer channel,Integer type,HttpServletResponse response) {
 		Map<String, Object> json = new HashMap<String, Object>();
 		
-		if(StringUtils.isEmpty(versionNo) || channel == null || channel.equals(0)) {
+		if(StringUtils.isEmpty(versionNo) || channel == null ||(type.equals(1) && channel.equals(0))) {
 			json.put("error", 1);
 			json.put("url", "参数必填");
 	 		
 			ResponseUtil.response(json, response);
+		}
+		if(type.equals(2)) {
+			channel = 0;
 		}
 		AppUpgradeConfig upgradeConfig = new AppUpgradeConfig();
 		upgradeConfig.setVersionNo(versionNo);

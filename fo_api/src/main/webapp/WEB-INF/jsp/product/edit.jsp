@@ -63,6 +63,28 @@ $(function(){
       
 });
 
+function uploadSmallImage(){
+    $.ajaxFileUpload({
+        url:'/admin/p/upload.do',
+        secureuri:false,
+        fileElementId:'uploadSmallimage',
+        dataType: 'json',
+        success: function (data)
+        {	
+            if(data.error != 0){
+                alert('上传失败，请重试！');
+                return;
+            }
+            $('#icon').val(data.url);
+            alert("上传成功");
+            //window.location.reload();
+        },
+        error: function ()
+        {
+            alert('上传失败，请重试！');
+        }
+    });
+}
 function uploadImage(){
     $.ajaxFileUpload({
         url:'/admin/p/upload.do',
@@ -90,16 +112,22 @@ function saveProduct(){
 	var pName = $("#pName").val();
 	var price = $("#price").val();
 	var pPic = $("#pPic").val();
+	var icon = $("#icon").val();
 	var cateCode = $("#cateCode").val();
-	var gfDesc =tinymce.activeEditor.getContent() ;
-	if(pName=='' || price==''||pPic=='' || gfDesc==''){
+	var activeEditor = tinymce.activeEditor; 
+	var editBody = activeEditor.getBody(); 
+	activeEditor.selection.select(editBody); 
+	var gfDesc = activeEditor.selection.getContent( { 'format' : 'text' } );
+	
+	//var gfDesc =tinymce.activeEditor.getContent() ;
+	if(pName=='' || price==''||pPic=='' || gfDesc=='' || icon==''){
 		alert('请填写符的名称或价格或图片、描述');
 		return;
 	}
 	$.ajax({
 		url: '/admin/p/save.do',
 　   	type: 'get',
-	　 　data: { pName: pName,price:price, pPic:pPic,cateCode:cateCode,gfDesc:gfDesc},
+	　 　data: { pName: pName,price:price, pPic:pPic,icon:icon,cateCode:cateCode,gfDesc:gfDesc},
 　    　//请求成功后触发
       	success: function (data) { 
 		if(data.error != 0){
@@ -141,10 +169,15 @@ function saveProduct(){
 				              <input type="text"  id="price" name="price" value="${p.price }">
 				              </li>
 				              <li>
+				               <input class="input" id="icon" type="hidden" name="icon" />
+				               <input class="input" id="uploadSmallimage" type="file" name="image" />
+							   <button class="small gray" onclick="uploadSmallImage()">上传符小图</button>
+				              </li>
+				              <li>
 				               <input class="input" id="pPic" type="hidden" name="pPic" />
 				               <input class="input" id="status" type="hidden" name="status" value="0"/>
 				               <input class="input" id="uploadimage" type="file" name="image" />
-							   <button class="small gray" onclick="uploadImage()">上传符图片</button>
+							   <button class="small gray" onclick="uploadImage()">上传符大图</button>
 				              </li>
 				              <li>
 				              <label>符的类别

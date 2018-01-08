@@ -22,6 +22,7 @@ public class AppBootConfig implements Serializable {
 	private int type;
 	private String createDt;
 	private String updateDt;
+	private int bootPay;
 	
 	public long getId() {
 		return id;
@@ -58,6 +59,13 @@ public class AppBootConfig implements Serializable {
 	}
 	public void setUpdateDt(String updateDt) {
 		this.updateDt = updateDt;
+	}
+
+	public int getBootPay() {
+		return bootPay;
+	}
+	public void setBootPay(int bootPay) {
+		this.bootPay = bootPay;
 	}
 	
 }

@@ -37,7 +37,7 @@ public class AppOrderRepositoryImpl implements AppOrderRepositoryCustom {
 	public List<AppOrder> getAppOrderByUidType(long uid, int type, int start, int limit) {
 		Query query = entityManager.createNativeQuery("select id,order_no,user_id,pid,p_name,order_price,order_type,order_channel,"
 				+ "status, create_dt,pay_type,pay_dt,out_order_no,update_dt "
-				+ "from app_order where user_id="+uid+" and order_type="+type+" order by id desc limit "+start+","+limit,AppOrder.class);
+				+ "from app_order where status=1  and user_id="+uid+" and order_type="+type+" order by id desc limit "+start+","+limit,AppOrder.class);
 		
 		return (List<AppOrder>)query.getResultList();
 	}
@@ -46,7 +46,7 @@ public class AppOrderRepositoryImpl implements AppOrderRepositoryCustom {
 	@Override
 	public int countAppOrderByUidType(long uid, int type) {
 		Query query = entityManager.createNativeQuery("select count(1) "
-				+ "from app_order where user_id="+uid+" and order_type="+type);
+				+ "from app_order where status=1  and user_id="+uid+" and order_type="+type);
 		List list = query.getResultList();
 		if(list != null && list.size() > 0) {
 			return Integer.valueOf(list.get(0).toString());

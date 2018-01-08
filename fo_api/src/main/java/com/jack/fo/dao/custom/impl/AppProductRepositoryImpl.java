@@ -19,7 +19,7 @@ public class AppProductRepositoryImpl implements AppProductRepositoryCustom {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AppProduct> getAppProductByCateCode(int cateCode) {
-		Query query = entityManager.createNativeQuery("select id,p_name,gf_desc,p_pic,price,cate_code,status, create_dt,update_dt "
+		Query query = entityManager.createNativeQuery("select id,p_name,gf_desc,p_pic,price,cate_code,status, icon,create_dt,update_dt "
 				+ "from app_product where status=1 and cate_code="+cateCode,AppProduct.class);
 		
 		return (List<AppProduct>)query.getResultList();

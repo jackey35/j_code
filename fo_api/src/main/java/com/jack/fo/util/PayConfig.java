@@ -19,6 +19,7 @@ public class PayConfig {
 	private String devVerify;
 	private String prodVerify;
 	private String filePath;
+	private int bootPay;
 	
 	public String getNotifyUrl() {
 		return notifyUrl;
@@ -97,5 +98,11 @@ public class PayConfig {
 	}
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
+	}
+	public int getBootPay() {
+		return bootPay;
+	}
+	public void setBootPay(int bootPay) {
+		this.bootPay = bootPay;
 	}
 }

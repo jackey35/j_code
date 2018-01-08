@@ -95,8 +95,8 @@ tr:nth-child(odd){background:#f6f6f6;}
     		var downloadUrl = $("#downloadUrl").val();
     		var type = $("#type").val();
     		alert(channel);
-    		if(versionNo=='' || channel==''||channel==0){
-    			alert('请填写版本号和渠道');
+    		if(versionNo=='' ){
+    			alert('请填写版本号');
     			return;
     		}
     		$.ajax({
