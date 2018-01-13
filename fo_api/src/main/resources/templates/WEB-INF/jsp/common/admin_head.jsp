@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div id="header" class="cfix">
 	<div class="logo l">
-    	<div class="bdr l"><img src="skin/images/logo.png" width="75" height="33" alt="" /></div>
+    	<div class="bdr l"></div>
     	开运大师管理中心
     </div>
     <div class="other r">

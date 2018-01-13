@@ -48,9 +48,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 	<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="../skin/main.js"></script>
 	<script type="text/javascript" src="../js/jquery-ui-1.9.2.custom.min.js"></script>
-	<script type="text/javascript" src="../js/common.js"></script>
 	<script type="text/javascript" src="../js/highcharts.js"></script>
-	<script type="text/javascript" src="../js/summary.js"></script>
 	<script type="text/javascript" src="../js/jquery.autocomplete.pack.js"></script>
 	<script type="text/javascript">
 		$().ready(function(){
@@ -97,6 +95,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 						<label>渠道
 						<select style='width: 100px;' class="txtc" name="regChannel">
 							<option value="0">请求选择</option>
+						    <option value="20" <c:if test="${user.regChannel==20}">selected</c:if>>官方</option>
                             <option value="1" <c:if test="${user.regChannel==1}">selected</c:if>>百度手助</option>
                             <option value="2" <c:if test="${user.regChannel==2}">selected</c:if>>360</option>
                             <option value="3" <c:if test="${user.regChannel==3}">selected</c:if>>华为</option>
@@ -174,12 +173,14 @@ tr:nth-child(odd){background:#f6f6f6;}
 								<c:if test="${user.regChannel==17}">应用汇</c:if>
 								<c:if test="${user.regChannel==18}">木蚂蚁</c:if>
 								<c:if test="${user.regChannel==19}">优亿</c:if>
+								<c:if test="${user.regChannel==20}">官方</c:if>
 							</td>
 						</tr>
 					</c:forEach>
 				</table>
 				<br />
 				<div id="pagination" class="pagination">
+					<a href="#">总记录数：${count},总页数：${pageCount} </a>
 					<a class="prev" <%if(pageNow>1){ %> href="<%=request.getContextPath() %>/admin/user/list.do?start=${ pageNow-1}&nickName=${user.nickName }&regChannel=${user.regChannel}&startDt=${startDt}&endDt=${endDt}">
 					<%}else{%> href="javascript:volid(0);"> <%} %>上一页</a>
 					

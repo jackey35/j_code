@@ -186,7 +186,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 			</div>
 
 			<div class="dateSelect mB15 ovh" id="queryshare1">
-				<div class="ft fl gray"></div>
+				<div class="ft gray"></div>
 				<div class="fl ftD">
 					<div class="ftDw cfix">
 						<label>平台
@@ -234,6 +234,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 				</table>
 				<br />
 				<div id="pagination" class="pagination">
+					<a href="#">总记录数：${count},总页数：${pageCount} </a>
 					<a class="prev" <%if(pageNow>1){ %> href="<%=request.getContextPath() %>/admin/share/list.do?start=${ pageNow-1}">
 					<%}else{%> href="javascript:volid(0);"> <%} %>上一页</a>
 					

@@ -88,8 +88,19 @@ tr:nth-child(odd){background:#f6f6f6;}
 			<br />
 			<div class="breadcrumb"><font>符列表----<a href="/admin/p/predit.do">添加新符</a></font>
 		     </div>
-			
-			<br />
+		     <form action="<%=request.getContextPath() %>/admin/p/list.do"  method="get">
+			<div class="dateSelect mB15 ovh" id="queryUser">
+				<div class="fl ftD mB8">
+					<div class="ftDw cfix">
+						<p class="fl">符名称</p>
+						<input type="text" id="pName" name="pName" value="${product.pName }">
+						</label>
+					</div>
+				</div>
+				<span class="bnta mL10"><input type="submit" 
+					id="query-share-list" value="提 交"/></span>
+			</div>
+			</form>
 			<div id="table-style">
 				<table id="mytable" cellspacing=0>
 					<tr>
@@ -106,9 +117,9 @@ tr:nth-child(odd){background:#f6f6f6;}
 					<c:forEach items="${list}" var="p" varStatus="varStatus">
 						<tr>
 							<td>${varStatus.index+1}</td>
-							<td>${p.pName}</td>
-							<td><img src="${p.icon}"/></td>
-							<td><img src="${p.pPic}"/></td>
+							<td><a href="admin/p/predit.do?id=${p.id }" title="点击修改">${p.pName}</a></td>
+							<td><img src="${p.icon}"  width="150px" height="150px"/></td>
+							<td><img src="${p.pPic}" width="150px" height="150px"/></td>
 							<td>${p.price}</td>
 							<td>${p.gfDesc}</td>
 							<td><c:if test="${p.cateCode==1}">金钱财运</c:if>

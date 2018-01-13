@@ -1,13 +1,13 @@
 package com.jack.fo.controller;
 
 import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
@@ -41,10 +41,9 @@ public class ProductController {
 	} 
 	
 	@RequestMapping("/admin/p/list")
-	public String getProductList(ModelMap map ,HttpServletRequest request){
-		ArrayList<AppProduct>  itList =  (ArrayList<AppProduct>)appProductRepository.findAll();
-		
-		List<AppProduct> list= itList;
+	public String getProductList(ModelMap map ,AppProduct product){
+		List<AppProduct> list =  (ArrayList<AppProduct>)appProductRepository.getAppProductByPname(product);
+		map.put("product", product);
 	    
 		map.put("list", list);
 	
@@ -69,7 +68,13 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/admin/p/predit")
-	public String preditAppProduct(AppProduct appProduct) {
+	public String preditAppProduct(ModelMap map,AppProduct product) {
+		long id = product.getId();
+		if(id!=0) {
+			product = appProductRepository.findOne(id);
+			map.put("p", product);
+		}
+		
 		return "product/edit";
 	}
 	

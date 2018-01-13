@@ -72,10 +72,22 @@ public class AppOrderRepositoryImpl implements AppOrderRepositoryCustom {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<AppOrder> getAppOrderByPname(String pName, String startDt, String endDt, int start, int limit) {
+	public List<AppOrder> getAppOrderByPname(AppOrder order,String startDt, String endDt, int start, int limit) {
 		String cond = "1 = 1 ";
-		if(!StringUtils.isEmpty(pName)) {
-			cond = cond + " and p_name='"+pName+"'";
+		if(!StringUtils.isEmpty(order.getpName())) {
+			cond = cond + " and p_name like '%"+order.getpName()+"%'";
+		}
+		
+		if(!StringUtils.isEmpty(order.getOrderNo())) {
+			cond = cond + " and order_no='"+order.getOrderNo()+"'";
+		}
+		
+		if(order.getStatus()!=0) {
+			cond = cond + " and status="+order.getStatus();
+		}
+		
+		if(order.getOrderChannel()!=0) {
+			cond = cond + " and order_channel="+order.getOrderChannel();
 		}
 		
 		if(!StringUtils.isEmpty(startDt)) {
@@ -94,10 +106,21 @@ public class AppOrderRepositoryImpl implements AppOrderRepositoryCustom {
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public int countAppOrderByPname(String pName, String startDt, String endDt) {
+	public int countAppOrderByPname(AppOrder order,String startDt, String endDt) {
 		String cond = "1 = 1 ";
-		if(!StringUtils.isEmpty(pName)) {
-			cond = cond + " and p_name='"+pName+"'";
+		if(!StringUtils.isEmpty(order.getpName())) {
+			cond = cond + " and p_name like '%"+order.getpName()+"%'";
+		}
+		
+		if(!StringUtils.isEmpty(order.getOrderNo())) {
+			cond = cond + " and order_no='"+order.getOrderNo()+"'";
+		}
+		if(order.getStatus()!=0) {
+			cond = cond + " and status="+order.getStatus();
+		}
+		
+		if(order.getOrderChannel()!=0) {
+			cond = cond + " and order_channel="+order.getOrderChannel();
 		}
 		
 		if(!StringUtils.isEmpty(startDt)) {

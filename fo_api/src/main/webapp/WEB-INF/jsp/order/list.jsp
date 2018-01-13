@@ -88,12 +88,64 @@ tr:nth-child(odd){background:#f6f6f6;}
 						</label>
 					</div>
 				</div>
-
+				<div class="ft fl gray"></div>
+				<div class="fl ftD mB8">
+					<div class="ftDw cfix">
+						<label>订单号
+						<input style='width:100px;' class="txtc" id="orderNo" name="orderNo" type="text" value='${order.orderNo}'>
+						</label>
+					</div>
+				</div>
 				<div class="ft fl gray"></div>
 				<div class="fl ftD">
 					<div class="ftDw cfix">
+						<label>订单状态
+						<select style='width: 100px;' class="txtc" name="status" id="status">
+						   <option value="0">请求选择</option>
+						   <option value="3" <c:if test="${order.status==3}">selected</c:if>>待支付</option>
+                            <option value="1" <c:if test="${order.status==1}">selected</c:if>>支付成功</option>
+                            <option value="2" <c:if test="${order.status==2}">selected</c:if>>支付失败</option>
+                         </select>
+						</label>
+					</div>
+				</div>
+				<div class="ft fl gray"></div>
+				<div class="fl ftD">
+					<div class="ftDw cfix">
+						<label>渠道
+						<select style='width: 100px;' class="txtc" name="orderChannel">
+							<option value="0">请求选择</option>
+						    <option value="20" <c:if test="${order.orderChannel==20}">selected</c:if>>官方</option>
+                            <option value="1" <c:if test="${order.orderChannel==1}">selected</c:if>>百度手助</option>
+                            <option value="2" <c:if test="${order.orderChannel==2}">selected</c:if>>360</option>
+                            <option value="3" <c:if test="${order.orderChannel==3}">selected</c:if>>华为</option>
+                            <option value="4" <c:if test="${order.orderChannel==4}">selected</c:if>>小米</option>
+                            <option value="5" <c:if test="${order.orderChannel==5}">selected</c:if>>OPPO</option>
+                            <option value="6" <c:if test="${order.orderChannel==6}">selected</c:if>>VIVO</option>
+                            <option value="7" <c:if test="${order.orderChannel==7}">selected</c:if>>魅族</option>
+                            <option value="8" <c:if test="${order.orderChannel==8}">selected</c:if>>酷派</option>
+                            <option value="9" <c:if test="${order.orderChannel==9}">selected</c:if>>联想</option>
+                            <option value="10" <c:if test="${order.orderChannel==10}">selected</c:if>>应用宝</option>
+                            <option value="11" <c:if test="${order.orderChannel==11}">selected</c:if>>安智</option>
+                            <option value="12" <c:if test="${order.orderChannel==12}">selected</c:if>>PP</option>
+                            <option value="13" <c:if test="${order.orderChannel==13}">selected</c:if>>搜狗</option>
+                            <option value="14" <c:if test="${order.orderChannel==14}">selected</c:if>>三星</option>
+                            <option value="15" <c:if test="${order.orderChannel==15}">selected</c:if>>锤子</option>
+                            <option value="16" <c:if test="${order.orderChannel==16}">selected</c:if>>金立</option>
+                            <option value="17" <c:if test="${order.orderChannel==17}">selected</c:if>>应用汇</option>
+                            <option value="18" <c:if test="${order.orderChannel==18}">selected</c:if>>木蚂蚁</option>
+                            <option value="19" <c:if test="${order.orderChannel==19}">selected</c:if>>优亿</option>
+						</select>
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="dateSelect mB15 ovh" id="queryOrder1">	
+				<div class="ft gray"></div>
+				<div class="fl ftD">
+					<div class="ftDw cfix">
 						<p class="fl">下单日期</p>
-						<input type="text" class="txte gray fl" name="startDt" value="${startDt }"/>
+						<input type="text" class="txte gray" name="startDt" value="${startDt }"/>
 					</div>
 				</div>
 				
@@ -150,9 +202,10 @@ tr:nth-child(odd){background:#f6f6f6;}
 								<c:if test="${order.orderChannel==17}">应用汇</c:if>
 								<c:if test="${order.orderChannel==18}">木蚂蚁</c:if>
 								<c:if test="${order.orderChannel==19}">优亿</c:if>
+								<c:if test="${order.orderChannel==20}">官方</c:if>
 							</td>
 							<td>${order.nickName}</td>
-							<td><c:if test="${order.status==0}">待支付</c:if>
+							<td><c:if test="${order.status==3}">待支付</c:if>
 								<c:if test="${order.status==1}">支付成功</c:if>
 								<c:if test="${order.status==2}">支付失败</c:if>
 							</td>
@@ -161,15 +214,16 @@ tr:nth-child(odd){background:#f6f6f6;}
 				</table>
 				<br />
 				<div id="pagination" class="pagination">
-					<a class="prev" <%if(pageNow>1){ %> href="<%=request.getContextPath() %>/admin/order/list.do?start=${ pageNow-1}&pName=${order.pName }&startDt=${startDt}&endDt=${endDt}">
+					<a href="#">总记录数：${count},总页数：${pageCount} </a>
+					<a class="prev" <%if(pageNow>1){ %> href="<%=request.getContextPath() %>/admin/order/list.do?start=${ pageNow-1}&orderChannel=${order.orderChannel}&pName=${order.pName }&startDt=${startDt}&endDt=${endDt}">
 					<%}else{%> href="javascript:volid(0);"> <%} %>上一页</a>
 					
 					
 					<%for(int i=1;i<=pageCount;i++){if(i>=1&&i<=pageCount){ %>
-					<a <%if(i==pageNow){%> class="current" <%} %> href="<%=request.getContextPath() %>/admin/order/list.do?start=<%=i%>&pName=${order.pName }&startDt=${startDt}&endDt=${endDt}"><%=i%></a>
+					<a <%if(i==pageNow){%> class="current" <%} %> href="<%=request.getContextPath() %>/admin/order/list.do?start=<%=i%>&orderChannel=${order.orderChannel}&pName=${order.pName }&startDt=${startDt}&endDt=${endDt}"><%=i%></a>
 					<%}}%>
 				
-				    <a class="next" <%if(pageNow<pageCount){ %> href="<%=request.getContextPath() %>/admin/order/list.do?start=<%=pageNow+1%>&pName=${order.pName }&startDt=${startDt}&endDt=${endDt}"
+				    <a class="next" <%if(pageNow<pageCount){ %> href="<%=request.getContextPath() %>/admin/order/list.do?start=<%=pageNow+1%>&orderChannel=${order.orderChannel}&pName=${order.pName }&startDt=${startDt}&endDt=${endDt}"
 				    <%}else{%> href="javascript:volid(0);" <%} %>>下一页</a>
 				</div>
 			</div>

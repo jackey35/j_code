@@ -94,7 +94,7 @@ tr:nth-child(odd){background:#f6f6f6;}
     		var channel = $("#channel").val();
     		var downloadUrl = $("#downloadUrl").val();
     		var type = $("#type").val();
-    		if(versionNo=='' || channel==''||channel==0){
+    		if(versionNo=='' || (type==1 && (channel==''||channel==0))){
     			alert('请填写版本号和渠道');
     			return;
     		}
@@ -138,30 +138,13 @@ tr:nth-child(odd){background:#f6f6f6;}
 						<input type="hidden" id="fileUrl" name="fileUrl" value="">
 					</div>
 				</div>
-				
-				<div class="ft fl gray"></div>
-				<div class="fl ftD">
-					<div class="ftDw cfix">
-						<p class="fl">升级文案</p>
-						<input type="text" id="memo" name="memo" value="${memo }">
-					</div>
-				</div>
-				<div class="ft fl gray"></div>
-				<div class="fl ftD">
-					<div class="ftDw cfix">
-						<p class="fl">下载地址</p>
-						<input type="text" id="downloadUrl" name="downloadUrl" value="${downloadUrl }">
-					</div>
-				</div>
-			</div>
-
-			<div class="dateSelect mB15 ovh" id="queryshare1">
 				<div class="ft fl gray"></div>
 				<div class="fl ftD">
 					<div class="ftDw cfix">
 						<label>渠道
 						<select style='width: 100px;' class="txtc" id="channel" name="channel">
 							<option value="0">请求选择</option>
+							<option value="20" <c:if test="${user.regChannel==20}">selected</c:if>>官方</option>
                             <option value="1" <c:if test="${upc.channel==1}">selected</c:if>>百度手助</option>
                             <option value="2" <c:if test="${upc.channel==2}">selected</c:if>>360</option>
                             <option value="3" <c:if test="${upc.channel==3}">selected</c:if>>华为</option>
@@ -196,6 +179,24 @@ tr:nth-child(odd){background:#f6f6f6;}
                             <option value="2" <c:if test="${user.type==2}">selected</c:if>>ios</option>
                          </select>
 						</label>
+					</div>
+				</div>
+				
+				<div class="ft fl gray"></div>
+				<div class="fl ftD">
+					<div class="ftDw cfix">
+						<p class="fl">下载地址</p>
+						<input type="text" id="downloadUrl" name="downloadUrl" value="${downloadUrl }">
+					</div>
+				</div>
+			</div>
+
+			<div class="dateSelect mB15 ovh" id="queryshare1">
+				<div class="ft fl gray"></div>
+				<div class="fl ftD">
+					<div class="ftDw cfix">
+						<p class="fl">升级文案</p>
+						<textarea rows="8" cols="50" id="memo" name="memo" value="${memo }"></textarea>
 					</div>
 				</div>
 				<span class="bnta mL10"><input type="submit" 
@@ -240,6 +241,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 								<c:if test="${upc.channel==17}">应用汇</c:if>
 								<c:if test="${upc.channel==18}">木蚂蚁</c:if>
 								<c:if test="${upc.channel==19}">优亿</c:if>
+								<c:if test="${upc.channel==20}">官方</c:if>
 							</td>
 							<td><c:if test="${upc.type==1}">android</c:if>
 								<c:if test="${upc.type==2}">ios</c:if>
@@ -254,6 +256,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 				</table>
 				<br />
 				<div id="pagination" class="pagination">
+					<a href="#">总记录数：${count},总页数：${pageCount} </a>
 					<a class="prev" <%if(pageNow>1){ %> href="<%=request.getContextPath() %>/admin/upc/list.do?start=${ pageNow-1}">
 					<%}else{%> href="javascript:volid(0);"> <%} %>上一页</a>
 					

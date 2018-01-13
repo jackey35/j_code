@@ -37,7 +37,7 @@ public class AppUserRepositoryImpl implements AppUserRepositoryCustom {
 	public List<AppUser> getAppUserListByCond(AppUser user,String startDt,String endDt, int start, int limit) {
 		String cond = "1 = 1 ";
 		if(!StringUtils.isEmpty(user.getNickName())) {
-			cond = cond + " and nick_name='"+user.getNickName()+"'";
+			cond = cond + " and nick_name like '%"+user.getNickName()+"%'";
 		}
 		if(user.getRegChannel()!=0) {
 			cond = cond + " and reg_channel="+user.getRegChannel();
@@ -61,7 +61,7 @@ public class AppUserRepositoryImpl implements AppUserRepositoryCustom {
 	public int cntAppUserListByCond(AppUser user,String startDt,String endDt) {
 		String cond = "1 = 1 ";
 		if(!StringUtils.isEmpty(user.getNickName())) {
-			cond = cond + " and nick_name='"+user.getNickName()+"'";
+			cond = cond + " and nick_name like '%"+user.getNickName()+"%'";
 		}
 		if(user.getRegChannel()!=0) {
 			cond = cond + " and reg_channel="+user.getRegChannel();

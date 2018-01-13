@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 
 import com.jack.fo.dao.custom.AppProductRepositoryCustom;
 import com.jack.fo.model.AppProduct;
@@ -21,6 +22,18 @@ public class AppProductRepositoryImpl implements AppProductRepositoryCustom {
 	public List<AppProduct> getAppProductByCateCode(int cateCode) {
 		Query query = entityManager.createNativeQuery("select id,p_name,gf_desc,p_pic,price,cate_code,status, icon,create_dt,update_dt "
 				+ "from app_product where status=1 and cate_code="+cateCode,AppProduct.class);
+		
+		return (List<AppProduct>)query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<AppProduct> getAppProductByPname(AppProduct product) {
+		String cond = "1=1 ";
+		if(!StringUtils.isEmpty(product.getpName())) {
+			cond = cond + " and p_name like '%"+product.getpName()+"%'";
+		}
+		Query query = entityManager.createNativeQuery("select id,p_name,gf_desc,p_pic,price,cate_code,status, icon,create_dt,update_dt "
+				+ "from app_product where "+cond,AppProduct.class);
 		
 		return (List<AppProduct>)query.getResultList();
 	}

@@ -11,6 +11,6 @@ public interface AppOrderRepositoryCustom {
 	
 	public List<AppOrder> getAppOrderByStatusType(int type);
 	
-	public List<AppOrder> getAppOrderByPname(String pName,String startDt,String endDt,int start,int limit);
-	public int countAppOrderByPname(String pName,String startDt,String endDt);
+	public List<AppOrder> getAppOrderByPname(AppOrder order,String startDt,String endDt,int start,int limit);
+	public int countAppOrderByPname(AppOrder order,String startDt,String endDt);
 }

@@ -52,7 +52,8 @@ public class ApplePayVerifyThread implements Runnable {
 				order.setPayDt(sdf.format(new Date()));
 				order.setOutOrderNo(transanId);
 				order.setUpdateDt(sdf.format(new Date()));
-				logger.error("apple pay succes,orderNo="+orderNo);
+				appOrderRepository.save(order);
+				logger.info("apple pay succes,orderNo="+orderNo);
 			}
 		}
 	}

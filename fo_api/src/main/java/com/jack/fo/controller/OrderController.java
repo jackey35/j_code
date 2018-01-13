@@ -112,6 +112,7 @@ public class OrderController {
 				return ResponseUtil.getResponseObject(0, null,"签名错误");
 		}
 		
+		order.setStatus(3);
 		appOrderRepository.save(order);
 		
 		
@@ -129,8 +130,8 @@ public class OrderController {
 	}
 	@ResponseBody
 	@RequestMapping("/order/paylist")
-	public Map<String,Object> paylist(int type){
-		List<AppOrder> list = appOrderRepository.getAppOrderByStatusType(type);
+	public Map<String,Object> paylist(int orderType){
+		List<AppOrder> list = appOrderRepository.getAppOrderByStatusType(orderType);
 		int len = list.size();
 		List<PayUser> userList = new ArrayList<PayUser>();
 		for(int i=0; i<len;i++) {
@@ -297,9 +298,9 @@ public class OrderController {
 	@RequestMapping("/admin/order/list")
 	public String list(ModelMap map ,HttpServletRequest request,AppOrder order,String startDt,String endDt,Integer start) {
 		int page = start==null?1:start.intValue();
-		int count = appOrderRepository.countAppOrderByPname(order.getpName(), startDt, endDt);
+		int count = appOrderRepository.countAppOrderByPname(order, startDt, endDt);
 		List<AppOrder> list = new ArrayList<AppOrder>();
-		list = appOrderRepository.getAppOrderByPname(order.getpName(), startDt, endDt, (page-1)*PageUtil.PAGE_SIZE,PageUtil.PAGE_SIZE);
+		list = appOrderRepository.getAppOrderByPname(order, startDt, endDt, (page-1)*PageUtil.PAGE_SIZE,PageUtil.PAGE_SIZE);
 		if(list != null && list.size()>0) {
 			for(AppOrder befOrder : list) {
 				AppUser user = appUserRepository.getAppUserByUserId(befOrder.getUserId());

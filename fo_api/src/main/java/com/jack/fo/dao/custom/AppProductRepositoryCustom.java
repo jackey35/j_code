@@ -6,4 +6,5 @@ import com.jack.fo.model.AppProduct;
 
 public interface AppProductRepositoryCustom {
 	public List<AppProduct> getAppProductByCateCode(int cateCode);
+	public List<AppProduct> getAppProductByPname(AppProduct product);
 }

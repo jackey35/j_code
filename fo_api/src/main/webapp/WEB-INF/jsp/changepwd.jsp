@@ -34,9 +34,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 	<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
 	<script type="text/javascript" src="../skin/main.js"></script>
 	<script type="text/javascript" src="../js/jquery-ui-1.9.2.custom.min.js"></script>
-	<script type="text/javascript" src="../js/common.js"></script>
 	<script type="text/javascript" src="../js/highcharts.js"></script>
-	<script type="text/javascript" src="../js/summary.js"></script>
 	<script type="text/javascript" src="../js/jquery.autocomplete.pack.js"></script>
 	
 </head>

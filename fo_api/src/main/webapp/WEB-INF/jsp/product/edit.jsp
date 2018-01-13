@@ -169,13 +169,13 @@ function saveProduct(){
 				              <input type="text"  id="price" name="price" value="${p.price }">
 				              </li>
 				              <li>
-				               <input class="input" id="icon" type="hidden" name="icon" />
-				               <input class="input" id="uploadSmallimage" type="file" name="image" />
+				               <input class="input" id="icon" type="hidden" name="icon" value="${p.icon}"/>
+				               <input class="input" id="uploadSmallimage" type="file" name="image"/>
 							   <button class="small gray" onclick="uploadSmallImage()">上传符小图</button>
 				              </li>
 				              <li>
-				               <input class="input" id="pPic" type="hidden" name="pPic" />
-				               <input class="input" id="status" type="hidden" name="status" value="0"/>
+				               <input class="input" id="pPic" type="hidden" name="pPic" value="${p.pPic}"/>
+				               <input class="input" id="status" type="hidden" name="status" value="${p.status}"/>
 				               <input class="input" id="uploadimage" type="file" name="image" />
 							   <button class="small gray" onclick="uploadImage()">上传符大图</button>
 				              </li>
@@ -196,7 +196,7 @@ function saveProduct(){
 								</label>
 							  </li>
 							  <li>符的描述
-							  <textarea id="notification-content" name="gfDesc" style="height:150px;width: 780px; resize:none"></textarea> 
+							  <textarea id="notification-content" name="gfDesc" style="height:150px;width: 780px; resize:none">${p.gfDesc }</textarea> 
 				               </li>
 				              </ul>
 			                  <!-- 保存按钮显示 -->
