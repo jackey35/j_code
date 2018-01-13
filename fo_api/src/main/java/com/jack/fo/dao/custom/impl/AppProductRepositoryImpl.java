@@ -20,8 +20,8 @@ public class AppProductRepositoryImpl implements AppProductRepositoryCustom {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AppProduct> getAppProductByCateCode(int cateCode) {
-		Query query = entityManager.createNativeQuery("select id,p_name,gf_desc,p_pic,price,cate_code,status, icon,create_dt,update_dt "
-				+ "from app_product where status=1 and cate_code="+cateCode,AppProduct.class);
+		Query query = entityManager.createNativeQuery("select id,p_name,gf_desc,p_pic,price,cate_code,status, icon,create_dt,update_dt, "
+				+ "priority from app_product where status=1 and cate_code="+cateCode+" order by priority desc,id desc",AppProduct.class);
 		
 		return (List<AppProduct>)query.getResultList();
 	}
@@ -32,8 +32,12 @@ public class AppProductRepositoryImpl implements AppProductRepositoryCustom {
 		if(!StringUtils.isEmpty(product.getpName())) {
 			cond = cond + " and p_name like '%"+product.getpName()+"%'";
 		}
-		Query query = entityManager.createNativeQuery("select id,p_name,gf_desc,p_pic,price,cate_code,status, icon,create_dt,update_dt "
-				+ "from app_product where "+cond,AppProduct.class);
+		
+		if(product.getCateCode()!=0) {
+			cond = cond + " and cate_code ="+product.getCateCode();
+		}
+		Query query = entityManager.createNativeQuery("select id,p_name,gf_desc,p_pic,price,cate_code,status, icon,create_dt,update_dt, "
+				+ "priority from app_product where "+cond+" order by id desc",AppProduct.class);
 		
 		return (List<AppProduct>)query.getResultList();
 	}

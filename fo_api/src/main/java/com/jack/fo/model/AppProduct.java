@@ -26,13 +26,8 @@ public class AppProduct implements Serializable {
 	private String createDt;
 	private String updateDt;
 	private String icon;
+	private int priority;
 	
-	public String getIcon() {
-		return icon;
-	}
-	public void setIcon(String icon) {
-		this.icon = icon;
-	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
@@ -90,5 +85,17 @@ public class AppProduct implements Serializable {
 		this.pPic = pPic;
 	}
 	
-	
+
+	public int getPriority() {
+		return priority;
+	}
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
 }

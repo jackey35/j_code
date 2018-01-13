@@ -129,6 +129,25 @@ public class ProductController {
 	}
 	
 	@ResponseBody
+	@RequestMapping("/admin/p/upriority")
+	public void updatePriority(long id,int priority,HttpServletResponse response) {
+		Map<String, Object> json = new HashMap<String, Object>();
+		
+		try {
+			AppProduct product = appProductRepository.findOne(id);
+			product.setPriority(priority);
+			appProductRepository.save(product);
+			json.put("error", 0);
+			json.put("p", product);
+		}catch(Exception e) {
+			json.put("error", 1);
+			json.put("p", null);
+		}
+		
+		ResponseUtil.response(json, response);
+	}
+	
+	@ResponseBody
 	@RequestMapping("/p/get")
 	public Map<String,Object> getAppProductById(Long id) {
 		AppProduct product = appProductRepository.findOne(id);
