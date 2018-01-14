@@ -45,7 +45,7 @@ public class BootConfigController {
 		AppBootConfig bootConfig = null;
 		if(list != null && list.size()>0) {
 			bootConfig = list.get(0);
-			bootConfig.setBootPay(payConfig.getBootPay());
+			//bootConfig.setBootPay(payConfig.getBootPay());
 		}
 		return ResponseUtil.getResponseObject(1, bootConfig, "");
 	}
@@ -76,6 +76,25 @@ public class BootConfigController {
 		
 		if(boot != null) {
 			boot.setStatus(status);
+			appBootConfigRepository.save(boot);
+			json.put("error", 0);
+			json.put("boot", boot);
+		}else {
+			json.put("error", 1);
+			json.put("boot", null);
+		}
+		 ResponseUtil.response(json, response);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/admin/boot/bootPay")
+	public void bootPay(long id,int bootPay,HttpServletResponse response) {
+		Map<String, Object> json = new HashMap<String, Object>();
+		
+		AppBootConfig boot = appBootConfigRepository.findOne(id);
+		
+		if(boot != null) {
+			boot.setBootPay(bootPay);
 			appBootConfigRepository.save(boot);
 			json.put("error", 0);
 			json.put("boot", boot);

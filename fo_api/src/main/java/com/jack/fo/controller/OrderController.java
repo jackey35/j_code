@@ -165,15 +165,15 @@ public class OrderController {
 		String paraName = "";
 		while(reqParameters.hasMoreElements()) {
 			paraName = reqParameters.nextElement();
-			//if(!paraName.equals("sign") && !paraName.equals("sign_type")) {
 			paramsMap.put(paraName, request.getParameter(paraName));
-			//}
 		}
 		try {
 			String paramStr = URLDecoder.decode(paramsMap.toString(),"utf_8");
 			logger.info("paramStr="+paramStr);
 			
-			/*if(!aliPayUtil.validateOrderBack(paramsMap)){
+			/*
+			 * 未通过key校验，先取消
+			 * if(!aliPayUtil.validateOrderBack(paramsMap)){
 				logger.info("sign is err,order_no="+aliPayOrderBack.getOut_trade_no());
 				return "fail";
 			}*/
@@ -226,20 +226,6 @@ public class OrderController {
 	            logger.debug("xml获取失败：" + e);  
 	        }  
 	        logger.info("wx paramStr="+ notityXml);  
-			/*Map<String, String> paramsMap = new HashMap<String,String>();
-			Enumeration<String> reqParameters = request.getParameterNames();
-			String paraName = "";
-			StringBuffer sb = new StringBuffer();  
-			while(reqParameters.hasMoreElements()) {
-				paraName = reqParameters.nextElement();
-				//if(!paraName.equals("sign") && !paraName.equals("sign_type")) {
-				sb.append(paraName).append("=");
-				paramsMap.put(paraName, request.getParameter(paraName));
-				sb.append(paramsMap.get(paraName));
-				//}
-			}
-
-		    logger.info("wx paramStr="+sb.toString());*/
 	        SortedMap<String,String> map = WXRequestUtil.doXMLParseWithSorted(notityXml);//接受微信的通知参数 
 	        logger.info("paramStr="+wxPayUtil.transMapToString(map));
 	        String returnCode = map.get("return_code");
