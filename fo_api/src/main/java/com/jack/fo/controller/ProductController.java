@@ -54,10 +54,22 @@ public class ProductController {
 	@RequestMapping("/admin/p/save")
 	public void saveAppProduct(AppProduct appProduct,HttpServletResponse response) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		appProduct.setCreateDt(sdf.format(new Date()));
-		appProduct.setUpdateDt(sdf.format(new Date()));
-		appProduct.setStatus(1);
-		appProductRepository.save(appProduct);
+		long id = appProduct.getId();
+		if(id == 0) {
+			appProduct.setCreateDt(sdf.format(new Date()));
+			appProduct.setUpdateDt(sdf.format(new Date()));
+			appProduct.setStatus(1);
+			appProductRepository.save(appProduct);
+		}else {
+			AppProduct product = appProductRepository.findOne(id);
+			if(product != null) {
+				appProduct.setCreateDt(product.getCreateDt());
+				appProduct.setStatus(product.getStatus());
+				appProduct.setPriority(product.getPriority());
+				appProduct.setUpdateDt(sdf.format(new Date()));
+				appProductRepository.save(appProduct);
+			}
+		}
 		
 		 Map<String, Object> json = new HashMap<String, Object>();
 		 json.put("error", 0);

@@ -80,7 +80,7 @@ tr:nth-child(odd){background:#f6f6f6;}
     	    var value = $(key).val();
 		$.ajax({
 		url: '/admin/p/upriority.do',
-　	type: 'get',
+　	    type: 'get',
 	　 　data: { id: id,priority:value },
 　    　//请求成功后触发
       success: function (data) { 

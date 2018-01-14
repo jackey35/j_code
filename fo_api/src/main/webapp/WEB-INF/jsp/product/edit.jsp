@@ -109,6 +109,10 @@ function uploadImage(){
 }
 
 function saveProduct(){
+	var id = $("#pid").val();
+	if(id == null || id == ''){
+		id = 0;
+	}
 	var pName = $("#pName").val();
 	var price = $("#price").val();
 	var pPic = $("#pPic").val();
@@ -127,7 +131,7 @@ function saveProduct(){
 	$.ajax({
 		url: '/admin/p/save.do',
 　   	type: 'get',
-	　 　data: { pName: pName,price:price, pPic:pPic,icon:icon,cateCode:cateCode,gfDesc:gfDesc},
+	　 　data: {id:id, pName: pName,price:price, pPic:pPic,icon:icon,cateCode:cateCode,gfDesc:gfDesc},
 　    　//请求成功后触发
       	success: function (data) { 
 		if(data.error != 0){
@@ -162,6 +166,7 @@ function saveProduct(){
 				              <ul>
 				              <li>
 				              <b style="font-size: 15px;"></b>符的名称
+				              <input type="hidden" id="pid" name="pid" value="${p.id }">
 				              <input type="text" id="pName" name="pName" value="${p.pName }">
 				              </li>
 				              <li>
