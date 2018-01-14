@@ -81,9 +81,9 @@ public class OrderController {
 		}else {
 			order.setpName("功德箱");
 		}
-		
-		if(StringUtils.isEmpty(order.getUserId())) {
-			return ResponseUtil.getResponseObject(0, null,"用户未登录");
+		AppUser user = appUserRepository.findOne(order.getUserId());
+		if(StringUtils.isEmpty(order.getUserId()) || user == null) {
+			return ResponseUtil.getResponseObject(0, null,"用户未登录或用户不存在");
 		}
 		String dt = sdf.format(new Date());
 		order.setOrderNo(dt.substring(0,4)+System.currentTimeMillis()+dt.substring(5,10).replace("-", ""));
