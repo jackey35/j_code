@@ -87,7 +87,7 @@ public class BootConfigController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/admin/boot/bootPay")
+	@RequestMapping("/boot/bootPay")
 	public void bootPay(long id,int bootPay,HttpServletResponse response) {
 		Map<String, Object> json = new HashMap<String, Object>();
 		
