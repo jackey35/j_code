@@ -87,7 +87,7 @@ public class UserController {
 						if(json != null) {
 							user = new AppUser();
 							user.setNickName(json.getString("nickname"));
-							user.setHeadUrl(loginType == 1?json.getString("headimgurl"):json.getString("figureurl"));
+							user.setHeadUrl(loginType == 1?json.getString("headimgurl"):json.getString("figureurl_qq_1"));
 							user.setOpenId(openId);
 							user.setRegTime(sdf.format(new Date()));
 							user.setRegChannel(channel);

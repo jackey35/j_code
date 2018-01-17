@@ -183,12 +183,16 @@ tr:nth-child(odd){background:#f6f6f6;}
 					<a href="#">总记录数：${count},总页数：${pageCount} </a>
 					<a class="prev" <%if(pageNow>1){ %> href="<%=request.getContextPath() %>/admin/user/list.do?start=${ pageNow-1}&nickName=${user.nickName }&regChannel=${user.regChannel}&startDt=${startDt}&endDt=${endDt}">
 					<%}else{%> href="javascript:volid(0);"> <%} %>上一页</a>
+					<%if((pageNow-2)>=2) {%>
+					<a href="#">...</a>
+					<%} %>
 					
-					
-					<%for(int i=1;i<=pageCount;i++){if(i>=1&&i<=pageCount){ %>
+					<%for(int i=1;i<=pageCount;i++){if(i>=(pageNow-2) && i<=(pageNow+2)){ %>
 					<a <%if(i==pageNow){%> class="current" <%} %> href="<%=request.getContextPath() %>/admin/user/list.do?start=<%=i%>&nickName=${user.nickName }&regChannel=${user.regChannel}&startDt=${startDt}&endDt=${endDt}"><%=i%></a>
 					<%}}%>
-				
+					<%if(pageNow+2<pageCount) {%>
+					<a href="#">...</a>
+					<%} %>
 				    <a class="next" <%if(pageNow<pageCount){ %> href="<%=request.getContextPath() %>/admin/user/list.do?start=<%=pageNow+1%>&nickName=${user.nickName }&regChannel=${user.regChannel}&startDt=${startDt}&endDt=${endDt}"
 				    <%}else{%> href="javascript:volid(0);" <%} %>>下一页</a>
 				</div>
