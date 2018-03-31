@@ -1,0 +1,6 @@
+.rightbar{width:152px;padding:0 15px;}
+.record li{margin:0 0 8px 0;}
+.record li strong{color:#898989;}
+.record li dl{width:100%;overflow:hidden;line-height:18px;margin-top:2px;}
+.record li dl dt{float:left;width:44px;color:#dd0d0b;}
+.record li dl dd{float:left;}

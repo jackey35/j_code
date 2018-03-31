@@ -33,8 +33,8 @@ public class AliPayUtil {
 		model.setSubject(subject);
 		model.setOutTradeNo(orderNo);
 		model.setTimeoutExpress("30m");
-		//model.setTotalAmount(orderPrice + "");//单位默认是元
-		model.setTotalAmount(0.01 + "");
+		model.setTotalAmount(orderPrice + "");//单位默认是元
+		//model.setTotalAmount(0.01 + "");
 		model.setProductCode("QUICK_MSECURITY_PAY");
 		request.setBizModel(model);
 		request.setNotifyUrl(payConfig.getNotifyUrl());

@@ -144,15 +144,23 @@ tr:nth-child(odd){background:#f6f6f6;}
 			<div id="table-style">
 				<table id="mytable" cellspacing=0>
 					<tr>
-						<th style="width: 210px;">序号</th>
-						<th style="width: 310px;">会员昵称</th>
-						<th style="width: 310px;">注册日期</th>
+						<th style="width: 110px;">用户id</th>
+						<th style="width: 150px;">会员昵称</th>
+						<th style="width: 160px;">会员头像</th>
+						<th style="width: 150px;">注册来源</th>
+						<th style="width: 160px;">注册日期</th>
 						<th style="width: 220px;">渠道名称</th>
 					</tr>
 					<c:forEach items="${list}" var="user" varStatus="varStatus">
 						<tr>
-							<td>${varStatus.index+1}</td>
+							<td>${user.id}</td>
 							<td>${user.nickName}</td>
+							<td><img src="${user.headUrl}" width="150px" height="150px"></img></td>
+							
+							<td><c:if test="${fn:contains(user.headUrl, 'wx.qlogo.cn')}">微信</c:if>
+								<c:if test="${fn:contains(user.headUrl, 'qzapp.qlogo.cn')}">qq</c:if>
+								<c:if test="${fn:contains(user.headUrl, 'q.qlogo.cn')}">qq</c:if>
+							</td>
 							<td>${user.regTime}</td>
 							<td><c:if test="${user.regChannel==1}">百度手助</c:if>
 								<c:if test="${user.regChannel==2}">360</c:if>
@@ -180,18 +188,18 @@ tr:nth-child(odd){background:#f6f6f6;}
 				</table>
 				<br />
 				<div id="pagination" class="pagination">
-					<a href="#">总记录数：${count},总页数：${pageCount} </a>
+					<a href="javascript:void(0)">总记录数：${count},总页数：${pageCount} </a>
 					<a class="prev" <%if(pageNow>1){ %> href="<%=request.getContextPath() %>/admin/user/list.do?start=${ pageNow-1}&nickName=${user.nickName }&regChannel=${user.regChannel}&startDt=${startDt}&endDt=${endDt}">
 					<%}else{%> href="javascript:volid(0);"> <%} %>上一页</a>
 					<%if((pageNow-2)>=2) {%>
-					<a href="#">...</a>
+					<a href="javascript:void(0)">...</a>
 					<%} %>
 					
 					<%for(int i=1;i<=pageCount;i++){if(i>=(pageNow-2) && i<=(pageNow+2)){ %>
 					<a <%if(i==pageNow){%> class="current" <%} %> href="<%=request.getContextPath() %>/admin/user/list.do?start=<%=i%>&nickName=${user.nickName }&regChannel=${user.regChannel}&startDt=${startDt}&endDt=${endDt}"><%=i%></a>
 					<%}}%>
 					<%if(pageNow+2<pageCount) {%>
-					<a href="#">...</a>
+					<a href="javascript:void(0)">...</a>
 					<%} %>
 				    <a class="next" <%if(pageNow<pageCount){ %> href="<%=request.getContextPath() %>/admin/user/list.do?start=<%=pageNow+1%>&nickName=${user.nickName }&regChannel=${user.regChannel}&startDt=${startDt}&endDt=${endDt}"
 				    <%}else{%> href="javascript:volid(0);" <%} %>>下一页</a>

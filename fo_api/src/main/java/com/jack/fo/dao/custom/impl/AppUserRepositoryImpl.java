@@ -22,7 +22,7 @@ public class AppUserRepositoryImpl implements AppUserRepositoryCustom {
 	@Override
 	public AppUser getAppUserByOpenId(String openId) {
 		Query query = entityManager.createNativeQuery("select id,nick_name,head_url,open_id,reg_time,reg_channel,type,"
-				+ "reg_ip,create_dt,update_dt "
+				+ "reg_ip,create_dt,update_dt,pass "
 				+ "from app_user where open_id='"+openId+"' order by id desc",AppUser.class);
 		
 		List<AppUser>  list = (List<AppUser>)query.getResultList();
@@ -50,7 +50,7 @@ public class AppUserRepositoryImpl implements AppUserRepositoryCustom {
 		}
 		
 		Query query = entityManager.createNativeQuery("select id,nick_name,head_url,open_id,reg_time,reg_channel,type,"
-				+ "reg_ip,create_dt,update_dt "
+				+ "reg_ip,create_dt,update_dt,pass "
 				+ "from app_user where "+cond+" order by id desc limit "+start+" ,"+limit,AppUser.class);
 		
 		return (List<AppUser>)query.getResultList();
@@ -87,7 +87,7 @@ public class AppUserRepositoryImpl implements AppUserRepositoryCustom {
 	@Override
 	public AppUser getAppUserByUserId(long userId) {
 		Query query = entityManager.createNativeQuery("select id,nick_name,head_url,open_id,reg_time,reg_channel,type,"
-				+ "reg_ip,create_dt,update_dt "
+				+ "reg_ip,create_dt,update_dt,pass "
 				+ "from app_user where id="+userId+" order by id desc",AppUser.class);
 		
 		List<AppUser>  list = (List<AppUser>)query.getResultList();
@@ -96,5 +96,32 @@ public class AppUserRepositoryImpl implements AppUserRepositoryCustom {
 		}
 		 return null;
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public AppUser getAppUserByNickName(String nickName) {
+		Query query = entityManager.createNativeQuery("select id,nick_name,head_url,open_id,reg_time,reg_channel,type,"
+				+ "reg_ip,create_dt,update_dt,pass "
+				+ "from app_user where nick_name='"+nickName+"' order by id desc",AppUser.class);
+		
+		List<AppUser>  list = (List<AppUser>)query.getResultList();
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		 return null;
+	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public AppUser getAppUserByNickNamePass(String nickName,String pass) {
+		Query query = entityManager.createNativeQuery("select id,nick_name,head_url,open_id,reg_time,reg_channel,type,"
+				+ "reg_ip,create_dt,update_dt,pass "
+				+ "from app_user where nick_name='"+nickName+"' and pass='"+pass+"' order by id desc",AppUser.class);
+		
+		List<AppUser>  list = (List<AppUser>)query.getResultList();
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		 return null;
+	}
 }

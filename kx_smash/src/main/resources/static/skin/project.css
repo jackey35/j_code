@@ -1,0 +1,115 @@
+@CHARSET "UTF-8";
+.project-add{
+	width: 100%;
+	height: auto;
+	font-size: 14px;
+	font-family: "微软雅黑";
+	
+}
+
+.ProLeft{
+	float: left;
+	width: 100%;
+	
+}
+
+.ProLeft ul {
+
+	display: block;
+	
+	
+}
+.ProLeft ul li{
+	margin: 10px 15px;
+	
+}
+.ProLeft ul li input{
+	width: 200px;
+}
+.ProLeft ul li span{
+	margin: 10px 15px;
+		width: 100px;
+	display: block;
+	float: left;
+
+	
+}
+.ProLeft ul li em{
+	margin-left: 20px;
+}
+.ProRight{
+	float: left;
+	width: 20%;
+}
+.ProRight label{
+	text-align:justify; 
+	padding-left: 50px;
+	
+}
+.cover{
+	width: 200px;
+	height: 160px;
+	padding: 15px 10px 35px 15px;
+	background-color: #d4d4d4;
+	float: left;
+	
+}
+.ProRight label {
+	width:100%;
+	margin:10px;
+	
+	float: left;
+	display: block;
+}
+.ProRight img {
+	float: left;
+}
+.ProContent{
+	float: left;
+	width: 100%;
+}
+
+.ProContent ul li strong{
+	margin: 10px 25px;
+		width: 100px;
+	display: block;
+	float: left;
+	font-weight: normal;
+	
+	
+}
+
+.ProReward{
+	float: left;
+	width: 100%;
+}
+.ProReward h6{
+	height: 30px;
+	margin: 10 10px;
+	display:block;
+	border-bottom: 1px solid #d4d4d4;
+	font-size: 16px; 
+	
+}
+.ProReward ul {
+
+	display: block;
+	
+	
+}
+.ProReward ul li{
+	margin: 10px 15px;
+	
+}
+.ProReward ul li input{
+	width: 200px;
+}
+.ProReward ul li span{
+	width: 100px;
+	display: block;
+	float: left;
+	
+}
+.ProReward ul li em{
+	margin-left: 20px;
+}

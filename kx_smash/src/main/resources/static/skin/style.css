@@ -1,0 +1,182 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+body{
+	margin: 0px;
+	padding: 0px;
+    background-size: 100%;
+    font-family: -apple-system-font,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+a{
+	text-decoration: none;
+}
+
+	.ms-1{
+		width: 90%;
+		margin: auto;
+	}
+	.ms-2{
+		width: 50%;
+		float: left;
+	}
+	.ms-3{
+		width: calc(100% / 3);
+		float: left;
+	}
+	.t_c{
+		text-align: center;
+	}
+	.t_l{
+		text-align: left;
+	}
+	.t_r{
+		text-align: right;
+	}
+	.fl{
+		float: left;
+	}
+	.fr{
+		float: right;
+	}
+
+	.dan{
+		padding-top: 2.5rem;
+	}
+	.dan img{
+		
+	}
+	.dan > div{
+		margin: auto;
+	}
+	.dan > div:nth-child(1){
+		width: 55%;
+	}
+	.dan > div:nth-child(2){
+		width: 78%;
+	}
+	.dan > div > div{
+		position: relative;
+	}
+
+	.dan > div > div .jindan{
+		width: 5rem;
+		margin-left: -.5rem;
+		margin-top: -1.5rem;
+	}
+	.dan > div > div .chuizi{
+		position: absolute;
+	    width: 2.6rem;
+	    z-index: 10;
+	    left: 1.4rem;
+	    display: none;
+	    top: -0.5rem;
+	}
+	.zadan{
+		animation: am .2s linear ;
+		animation-fill-mode: forwards;
+	}
+	@keyframes am
+	{
+		from {transform:none;}
+		to {transform:rotate(-15deg);}
+	}
+	.wenben{
+		width: 80%;
+		margin: auto;
+	}
+	.wenben img{
+		width: 100%;
+		margin-top: .5rem;
+	}
+	.wenben p{
+		text-align: center;
+		color: #f8ba71;
+		font-size: .5rem;
+		margin: .5rem 0px;
+	}
+	.jiangli{
+		width: 93%;
+		margin: auto;
+		position: relative;
+	}
+	.jiangli img{
+		width: 100%;
+		position: absolute;
+		left: 0px;
+		top: 0px;
+	}
+	.neirong{
+		padding: 1.5rem 1rem 1rem 1rem;
+	    position: relative;
+	    z-index: 1;
+	}
+	.neirong p{
+		color: #873412;
+		font-size: .55rem;
+		margin: .2rem 0px;
+		overflow: hidden;
+	}
+	.neirong p span{
+		display: block;
+		float: left;
+	}
+	.neirong p span:nth-child(1){
+		width: 2.3rem;
+	}
+	.neirong p span:nth-child(2){
+		width: 8rem;
+	}
+
+
+	
+	.result-egg{
+		text-align: center;
+		margin-top: 2rem;
+	}
+	.result-egg img{
+		width: 80%;
+	}
+	.result-content{
+		text-align: center;
+		margin-top: 1rem;
+	}
+
+	.result-content p.head{
+		font-size: .8rem;
+	}
+	.result-content p{
+		font-size: .6rem;
+	}
+	.result-content a.submit{
+		background: url(img/an.png) no-repeat center center;
+	    display: inline-block;
+	    width: 6rem;
+	    height: 2rem;
+	    line-height: 2rem;
+	    background-size: 100%;
+	    font-size: .8rem;
+	}
+	.submit-from{
+		font-size: .6rem;
+		text-align: center;
+	}
+	.submit-from p{
+		margin: .3rem 0px;
+	}
+	.submit-from p span{
+		display: inline-block;
+		height: 1rem;
+		width: 2.8rem;
+		text-align: center;
+	}
+	.submit-from p input{
+		display: inline-block;
+		height: 1rem;
+		background: #b28750;
+		border: 1px solid #802b02;
+		width: 6rem;
+	}
+	.hide{
+		display: none;
+	}

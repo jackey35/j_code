@@ -26,6 +26,8 @@ public class AppUser implements Serializable {
 	private String regIp;
 	private String createDt;
 	private String updateDt;
+	private String pass;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public long getId() {
@@ -87,5 +89,11 @@ public class AppUser implements Serializable {
 	}
 	public void setUpdateDt(String updateDt) {
 		this.updateDt = updateDt;
+	}
+	public String getPass() {
+		return pass;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 }

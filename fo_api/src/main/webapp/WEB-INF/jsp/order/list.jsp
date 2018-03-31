@@ -171,6 +171,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 						<th style="width: 200px;">下单日期</th>
 						<th style="width: 200px;">支付日期</th>
 						<th style="width: 90px;">支付金额</th>
+						<th style="width: 90px;">支付方式</th>
 						<th style="width: 120px;">渠道名称</th>
 						<th style="width: 120px;">会员名称</th>
 						<th style="width: 120px;">订单状态</th>
@@ -183,6 +184,8 @@ tr:nth-child(odd){background:#f6f6f6;}
 							<td>${order.createDt}</td>
 							<td>${order.payDt}</td>
 							<td>${order.orderPrice}</td>
+							<td><c:if test="${order.payType==0}">支付宝</c:if>
+								<c:if test="${order.payType==1}">微信</c:if></td>
 							<td><c:if test="${order.orderChannel==1}">百度手助</c:if>
 								<c:if test="${order.orderChannel==2}">360</c:if>
 								<c:if test="${order.orderChannel==3}">华为</c:if>
@@ -214,11 +217,11 @@ tr:nth-child(odd){background:#f6f6f6;}
 				</table>
 				<br />
 				<div id="pagination" class="pagination">
-					<a href="#">总记录数：${count},总页数：${pageCount} </a>
+					<a href="javascript:void(0)" >总记录数：${count},总页数：${pageCount} </a>
 					<a class="prev" <%if(pageNow>1){ %> href="<%=request.getContextPath() %>/admin/order/list.do?start=${ pageNow-1}&orderChannel=${order.orderChannel}&pName=${order.pName }&startDt=${startDt}&endDt=${endDt}">
 					<%}else{%> href="javascript:volid(0);"> <%} %>上一页</a>
 					<%if((pageNow-2)>=2) {%>
-					<a href="#">...</a>
+					<a href="javascript:void(0)">...</a>
 					<%} %>
 					
 					<%for(int i=1;i<=pageCount;i++){if(i>=(pageNow-2) && i<=(pageNow+2)){ %>
@@ -226,7 +229,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 					<a <%if(i==pageNow){%> class="current" <%} %> href="<%=request.getContextPath() %>/admin/order/list.do?start=<%=i%>&orderChannel=${order.orderChannel}&pName=${order.pName }&startDt=${startDt}&endDt=${endDt}"><%=i%></a>
 					<%}}%>
 					<%if(pageNow+2<pageCount) {%>
-					<a href="#">...</a>
+					<a href="javascript:void(0)">...</a>
 					<%} %>
 				    <a class="next" <%if(pageNow<pageCount){ %> href="<%=request.getContextPath() %>/admin/order/list.do?start=<%=pageNow+1%>&orderChannel=${order.orderChannel}&pName=${order.pName }&startDt=${startDt}&endDt=${endDt}"
 				    <%}else{%> href="javascript:volid(0);" <%} %>>下一页</a>

@@ -234,18 +234,18 @@ tr:nth-child(odd){background:#f6f6f6;}
 				</table>
 				<br />
 				<div id="pagination" class="pagination">
-					<a href="#">总记录数：${count},总页数：${pageCount} </a>
+					<a href="javascript:void(0)">总记录数：${count},总页数：${pageCount} </a>
 					<a class="prev" <%if(pageNow>1){ %> href="<%=request.getContextPath() %>/admin/share/list.do?start=${ pageNow-1}">
 					<%}else{%> href="javascript:volid(0);"> <%} %>上一页</a>
 					<%if((pageNow-2)>=2) {%>
-					<a href="#">...</a>
+					<a href="javascript:void(0)">...</a>
 					<%} %>
 					
 					<%for(int i=1;i<=pageCount;i++){if(i>=(pageNow-2) && i<=(pageNow+2)){ %>
 					<a <%if(i==pageNow){%> class="current" <%} %> href="<%=request.getContextPath() %>/admin/share/list.do?start=<%=i%>"><%=i%></a>
 					<%}}%>
 				    <%if(pageNow+2<pageCount) {%>
-					<a href="#">...</a>
+					<a href="javascript:void(0)">...</a>
 					<%} %>
 				    <a class="next" <%if(pageNow<pageCount){ %> href="<%=request.getContextPath() %>/admin/share/list.do?start=<%=pageNow+1%>"
 				    <%}else{%> href="javascript:volid(0);" <%} %>>下一页</a>

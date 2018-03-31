@@ -23,6 +23,7 @@ import com.jack.fo.dao.AppUserRepository;
 import com.jack.fo.model.AppUser;
 import com.jack.fo.util.HttpUtil;
 import com.jack.fo.util.IpUtil;
+import com.jack.fo.util.MD5Util;
 import com.jack.fo.util.PageUtil;
 import com.jack.fo.util.ResponseUtil;
 
@@ -37,6 +38,7 @@ public class UserController {
 	 private HttpServletRequest request;
 	private final static String GET_USER_INFO="http://api.weixin.qq.com/sns/userinfo?";
 	private final static String QQ_GET_USER="https://graph.qq.com/user/get_user_info?";
+	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
 	@ResponseBody
 	@RequestMapping("/user/save")
@@ -54,8 +56,6 @@ public class UserController {
 		if(StringUtils.isEmpty(accessToken) || StringUtils.isEmpty(openId)) {
 			return ResponseUtil.getResponseObject(0, null, "缺少accessToke或openId");
 		}
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		
 		AppUser user = appUserRepository.getAppUserByOpenId(openId);
 		if(user == null) {
@@ -124,6 +124,48 @@ public class UserController {
 			return ResponseUtil.getResponseObject(0, null, "用户不存在");
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping("/user/reg")
+	public Map<String ,Object> register(String name,String pass) {
+		AppUser user = appUserRepository.getAppUserByNickName(name);
+		if(user != null || StringUtils.isEmpty(pass) || name.length()>20) {
+			return ResponseUtil.getResponseObject(0, null, "昵称已存在或注册密码不能为空");
+		}else {
+			user = new AppUser();
+			user.setNickName(name);
+			user.setPass(MD5Util.MD5Encode(pass, "utf-8"));
+			user.setHeadUrl("http://q.qlogo.cn/qqapp/111111/942FEA70050EEAFBD4DCE2C1FC775E56/40");
+			user.setRegTime(sdf.format(new Date()));
+			user.setRegChannel(100);
+			user.setRegIp(IpUtil.getIpAddr(request));
+			user.setCreateDt(sdf.format(new Date()));
+			user.setOpenId("100");
+			user.setUpdateDt(sdf.format(new Date()));
+			try {
+				user = appUserRepository.save(user);
+				user.setPass("");
+				return ResponseUtil.getResponseObject(1, user, "注册成功");
+			}catch(Exception e) {
+				return ResponseUtil.getResponseObject(0, null, "注册失败");
+			}
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("/user/login")
+	public Map<String ,Object> login(String name,String pass) {
+		pass = MD5Util.MD5Encode(pass, "utf-8");
+		logger.info("login,name="+name+",pass="+pass);
+		AppUser user = appUserRepository.getAppUserByNickNamePass(name, pass);
+		if(user != null) {
+			user.setPass("");
+			return ResponseUtil.getResponseObject(1, user, "登录成功");
+		}else {
+			return ResponseUtil.getResponseObject(0, null, "用户不存在或密码不正确");
+		}
+	}
+	
 	
 	@RequestMapping("/admin/user/list")
 	public String list(ModelMap map ,HttpServletRequest request,AppUser user,String startDt,String endDt,Integer start) {

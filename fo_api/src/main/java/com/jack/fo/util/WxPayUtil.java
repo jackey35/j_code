@@ -25,8 +25,8 @@ public class WxPayUtil {
 		Map<String, String> reqData = new HashMap<String, String>();
 		reqData.put("body", "开运大师-" + order.getpName());
 		reqData.put("out_trade_no", order.getOrderNo());
-		//reqData.put("total_fee", order.getOrderPrice() * 100 + "");//单位默认是分
-		reqData.put("total_fee", 1 + "");
+		reqData.put("total_fee", order.getOrderPrice() * 100 + "");//单位默认是分
+		//reqData.put("total_fee", 1 + "");
 		reqData.put("spbill_create_ip", "117.13.227.46");
 		reqData.put("notify_url", payConfig.getNotifyUrl());
 		reqData.put("trade_type", "APP");

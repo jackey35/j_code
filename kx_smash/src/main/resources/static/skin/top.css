@@ -1,0 +1,18 @@
+.btn-search{background:url(images/btn-2.png) no-repeat 0 -35px;display:inline-block;width:28px;height:28px;border:0;cursor:pointer;}
+.btn-search:hover{background-position:-39px -35px;}
+.btn-search:active{background-position:-78px -35px;}
+/* header */
+#header{height:68px;background:url(images/hbg.gif) repeat-x #fff;border-bottom:2px solid #db2028;}
+#header .logo{width:280px;padding:19px 0 0 19px;font-family:"微软雅黑";font-size:22px;color:#db2028;line-height:33px;}
+#header .logo .bdr{border-right:2px solid #dedede;padding:0 15px 0 0;margin-right:12px;}
+#header .other{width:312px;padding-right:15px;}
+#header .other .ico-quit{display:inline-block;background:url(images/ico-2.png) no-repeat right top;width:11px;height:11px;}
+#header .other .row1{margin-top:10px;text-align:right;height:25px;}
+.search{position:relative;}
+.search .d{background:url(images/btn-2.png) no-repeat;width:220px;height:28px;margin-right:5px;_margin:0;}
+.search .txt{display:inline-block;width:50px;height:28px;line-height:28px;padding:0 0 0 8px;cursor:pointer;}
+.search .in{width:150px;height:22px;border:0;vertical-align:middle;background:#f7f7f7;}
+.search .u{position:absolute;top:-21px;left:0;width:55px;background:url(images/bg-4.png) no-repeat;padding:2px 0 0;display:none}
+.search .u li{background:#ebebeb;border-left:1px solid #db2028;border-right:1px solid #db2028;height:20px;line-height:20px;overflow:hidden;}
+.search .u li a{display:block;padding:0 0 0 8px;height:20px;}
+.search .active{background:url(images/btn-2.png) no-repeat -283px 11px;}

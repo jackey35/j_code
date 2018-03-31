@@ -10,4 +10,6 @@ public interface AppUserRepositoryCustom {
 	public List<AppUser> getAppUserListByCond(AppUser user,String startDt,String endDt,int start,int limit);
 	public int cntAppUserListByCond(AppUser user,String startDt,String endDt);
 	public AppUser getAppUserByUserId(long userId);
+	public AppUser getAppUserByNickName(String nickName);
+	public AppUser getAppUserByNickNamePass(String nickName,String pass);
 }

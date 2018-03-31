@@ -179,7 +179,7 @@ public class OrderController {
 			}*/
 			String orderNo = aliPayOrderBack.getOut_trade_no();
 			AppOrder order = appOrderRepository.getAppOrderByOrderNo(orderNo);
-			if(order == null /*|| payOrderBack.getTotal_amount() != order.getOrderPrice()*/
+			if(order == null || aliPayOrderBack.getTotal_amount().intValue() != order.getOrderPrice()
 					|| order.getStatus() == 1) {
 				return "fail";
 			}
@@ -236,7 +236,7 @@ public class OrderController {
 	        String totalFee = map.get("total_fee");
 	        String transactionId = map.get("transaction_id");
 			AppOrder order = appOrderRepository.getAppOrderByOrderNo(orderNo);
-			if(order == null || /*!totalFee.equals(order.getOrderPrice()) ||*/ order.getStatus() == 1) {
+			if(order == null || !totalFee.equals(String.valueOf(order.getOrderPrice()*100)) || order.getStatus() == 1) {
 				return "error,通知订单异常或金额不对";
 			}
 			order.setStatus(1);
