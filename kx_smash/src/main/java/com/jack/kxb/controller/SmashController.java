@@ -146,6 +146,34 @@ public class SmashController {
 						}
 					}
 					
+					url = WxUtil.JS_API_URL+accessToken;
+					resp = HttpUtil.sendGet(url);
+					logger.info("get js ticket,url={},resp = {}",url,resp);
+					json = new JSONObject(resp);
+					if(json.getInt("errcode")==0) {
+						String jsticket = json.getString("ticket");
+						map.put("jsapi_ticket", jsticket);
+						String noncestr="Wm3WZYTPz0wzccnW";
+						map.put("noncestr", noncestr);
+						long timestamp = System.currentTimeMillis();
+						map.put("timestamp", timestamp);
+						String pageUrl = "http://www.jinxinsenhui.com/smash/wxauth.do?code="+code+"&state=123";
+						map.put("url", pageUrl);
+						
+						Map<String, String> sortedParams = new HashMap<String,String>();
+						sortedParams.put("jsapi_ticket", jsticket);
+						sortedParams.put("noncestr", noncestr);
+						sortedParams.put("timestamp", timestamp+"");
+						sortedParams.put("url", pageUrl);
+						try {
+							String sortParam = MD5Util.getSignContent(sortedParams);
+							String sign = MD5Util.getSHA1(sortParam);
+							logger.info("get jsticket,sortParam={},sign={}",sortParam,sign);
+							map.put("sign", sign);
+						} catch (AesException e) {
+							e.printStackTrace();
+						}
+					}
 				}
 			}
 		}
@@ -191,7 +219,7 @@ public class SmashController {
 		int index = PrizeUtil.getPrizeIndex(list);
 		status = 1;
 		KxPrize kxPrize = list.get(index);
-		logger.info("smash egg,openId={}，winLevel={},prizeCnt={}",openId,winLevel,kxPrize.getPrizeCnt());
+		logger.info("smash egg,openId={}，winLevel={},prizeCnt={}",openId,kxPrize.getPrizeLevel(),kxPrize.getPrizeCnt());
 		if(kxPrize.getPrizeCnt()>0) {
 			winLevel = kxPrize.getPrizeLevel();
 			if(winLevel == 1 && !tdjOpenIds.containsKey(openId)) {//非指定用户中特等奖，降级阳光普照奖

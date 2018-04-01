@@ -9,6 +9,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+
+
 public class MD5Util {
 	private static final String token = "adminKaixin";
 	private static String byteArrayToHexString(byte b[]) {  
@@ -87,6 +89,48 @@ public class MD5Util {
 			md.update(str.getBytes());
 			byte[] digest = md.digest();
 
+			StringBuffer hexstr = new StringBuffer();
+			String shaHex = "";
+			for (int i = 0; i < digest.length; i++) {
+				shaHex = Integer.toHexString(digest[i] & 0xFF);
+				if (shaHex.length() < 2) {
+					hexstr.append(0);
+				}
+				hexstr.append(shaHex);
+			}
+			return hexstr.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new AesException(AesException.ComputeSignatureError);
+		}
+	}
+	
+	 /**
+     * 
+     * @param sortedParams
+     * @return
+     */
+    public static String getSignContent(Map<String, String> sortedParams) {
+        StringBuffer content = new StringBuffer();
+        List<String> keys = new ArrayList<String>(sortedParams.keySet());
+        Collections.sort(keys);
+        int index = 0;
+        for (int i = 0; i < keys.size(); i++) {
+            String key = keys.get(i);
+            String value = sortedParams.get(key);
+            content.append((index == 0 ? "" : "&") + key + "=" + value);
+            index++;
+        }
+        return content.toString();
+    }
+    
+	public static String getSHA1(String content) throws AesException  {
+		try {
+			// SHA1签名生成
+			MessageDigest md = MessageDigest.getInstance("SHA-1");
+			md.update(content.getBytes());
+			byte[] digest = md.digest();
+		
 			StringBuffer hexstr = new StringBuffer();
 			String shaHex = "";
 			for (int i = 0; i < digest.length; i++) {

@@ -129,7 +129,15 @@ a{
 	}
 
 
-	
+	.result{
+		background: rgba(0,0,0,0.9);
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		left: 0px;
+	    z-index: 100;
+		top: 0px;
+	}
 	.result-egg{
 		text-align: center;
 		margin-top: 2rem;
@@ -147,15 +155,17 @@ a{
 	}
 	.result-content p{
 		font-size: .6rem;
+		color: #fff292;
 	}
 	.result-content a.submit{
-		background: url(img/an.png) no-repeat center center;
+		background: url(images/an.png) no-repeat center center;
 	    display: inline-block;
 	    width: 6rem;
 	    height: 2rem;
 	    line-height: 2rem;
 	    background-size: 100%;
 	    font-size: .8rem;
+	    color: #fff292;
 	}
 	.submit-from{
 		font-size: .6rem;
@@ -163,6 +173,9 @@ a{
 	}
 	.submit-from p{
 		margin: .3rem 0px;
+	}
+	.submit-from p.errorMsg{
+		font-size: .5rem;
 	}
 	.submit-from p span{
 		display: inline-block;
@@ -176,7 +189,24 @@ a{
 		background: #b28750;
 		border: 1px solid #802b02;
 		width: 6rem;
+		padding: 0px 5px;
 	}
 	.hide{
 		display: none;
+	}
+
+	.erweima{
+	    position: absolute;
+	    left: 0px;
+	    top: 0px;
+	    height: 100%;
+	    width: 100%;
+	    background: rgba(0,0,0,0.9);
+	    z-index: 1000;
+	    text-align: center;
+	    color: #fff;
+	    font-size: .7rem;
+	}
+	.erweima p{
+		padding: 1rem 1.2rem 0.5rem 1.2rem;
 	}

@@ -6,4 +6,5 @@ public class WxUtil {
 	public final static String GET_OPENID_URL="https://api.weixin.qq.com/sns/oauth2/access_token?grant_type=authorization_code";
 	public final static String GET_ACCESS_TOKEN_URL="https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential";
 	public final static String GET_USER_INFO="https://api.weixin.qq.com/cgi-bin/user/info?&lang=zh_CN";
+	public final static String JS_API_URL="https://api.weixin.qq.com/cgi-bin/ticket/getticket?type=jsapi&access_token=";
 }

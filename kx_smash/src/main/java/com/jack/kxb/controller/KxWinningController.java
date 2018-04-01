@@ -46,6 +46,7 @@ public class KxWinningController {
 	@ResponseBody
 	@RequestMapping("/smash/winning")
 	public Map<String, Object> save(KxWinning winning){
+		logger.info("save winnig,name={},phone={},address={}",winning.getName(),winning.getPhone(),winning.getAddress());
 		if(StringUtils.isEmpty(winning.getName()) || StringUtils.isEmpty(winning.getPhone())) {
 			return ResponseUtil.getResponseObject(0, null, "手机号、姓名必填");
 		}

@@ -30,7 +30,7 @@ public class KxShareController {
 	@RequestMapping("/smash/share")
 	@ResponseBody
 	public Map<String, Object> save(String openId) {
-		logger.info("openId={}",openId);
+		logger.info("share openId={}",openId);
 		if(StringUtils.isEmpty(openId)) {
 			return ResponseUtil.getResponseObject(0, null, "非法用户");
 		}

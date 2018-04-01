@@ -15,19 +15,19 @@
 var openid = $('#openid').val();
 //winLevel 结果
 var winLevel = {
-    1:['特等奖','苹果IphoneX256G手机一部'],
+    1:['特等奖','苹果X256G手机'],
     2:['一等奖：','一百元手机话费'],
     3:['二等奖：','50元手机话费'],
     4:['三等奖：','锅/书'],
-    5:['普照奖：','50元首投现金红包'],
-    6:['普照奖：','50元老用户投资红包'],
+    5:['普照奖：','50元首投奖'],
+    5:['普照奖：','50元首投奖'],
 }
 
 //httpStatus 结果
 var ss = [];
 ss[0] = '系统异常';
-ss[100] = '今日抽奖机会已用完';
-ss[101] = '转发朋友圈赢取抽奖机会';
+ss[100] = '抽奖机会已用完';
+ss[101] = '转发增加抽奖机会';
 ss[102] = '奖品已抽完';
 
 //测试数据
@@ -54,7 +54,6 @@ $('.za').click(function(event) { // 砸蛋事件
                     $('.winning').removeClass('hide');
                     $('.winning .head').html('恭喜您！</br>砸中'+winLevel[data.obj.winLevel][0]+'!');
                     $('.winning .prize').html(winLevel[data.obj.winLevel][1]);
-                    $('.success').addClass('hide');
                     winId = data.obj.winId
                 }else{
                     $('.lost').removeClass('hide').find('p').html('好可惜！</br>这个是空的！');
@@ -98,3 +97,50 @@ $('a.close').click(function(){
     $('.chuizi').removeClass('zadan').hide();
     $('.result-content > div').addClass('hide');
 });
+
+
+//微信分享
+var shareData = {
+  img_url: "",
+  img_width: 200,
+  img_height: 200,
+  link: '',
+  desc: '',
+  title: '',
+  appid: 0
+};
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+  // 发送给好友
+  WeixinJSBridge.on('menu:share:appmessage', function(argv){
+    shareFriend();
+  });
+  // 分享到朋友圈
+  WeixinJSBridge.on('menu:share:timeline', function(argv){
+    shareTimeline();
+  });
+}, false);
+function shareTimeline() {
+  WeixinJSBridge.invoke('shareTimeline', shareData, function(res) {
+    validateShare(res);
+    _report('timeline', res.err_msg);
+  });
+}
+function shareFriend() {
+  WeixinJSBridge.invoke('sendAppMessage', shareData, function(res) {
+    validateShare(res);
+    _report('send_msg', res.err_msg);
+  });
+}
+function validateShare(res) {
+    console.log(res);
+  if(res.err_msg != 'send_app_msg:cancel' && res.err_msg != 'share_timeline:cancel') {
+  //分享完毕回调
+    $.post('http://www.jinxinsenhui.com/smash/share.do?openId='+openid,function(data){
+        if(data.httpStatus==1){
+            number++;
+            $('.submit-from').hide();
+            $('.success').show();
+        }
+    });
+  }
+}
