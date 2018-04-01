@@ -55,6 +55,7 @@ $('.za').click(function(event) { // 砸蛋事件
                     $('.winning .head').html('恭喜您！</br>砸中'+winLevel[data.obj.winLevel][0]+'!');
                     $('.winning .prize').html(winLevel[data.obj.winLevel][1]);
                     $('.success').addClass('hide');
+                    $('#result-img').attr('src','../skin/images/zhongjiang.png');
                     winId = data.obj.winId
                 }else{
                     $('.lost').removeClass('hide').find('p').html('好可惜！</br>这个是空的！');
@@ -62,6 +63,7 @@ $('.za').click(function(event) { // 砸蛋事件
             }else{
                 console.log(ss , data.httpStatus);
                 $('.lost').removeClass('hide').find('p').html(ss[data.httpStatus]);
+                $('#result-img').attr('src','../skin/images/meizhongjiang.png');
             }
         }); 
     },500);

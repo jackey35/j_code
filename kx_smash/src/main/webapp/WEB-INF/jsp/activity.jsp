@@ -77,7 +77,7 @@
 	</div>
 	<div class="result hide">
 		<div class="result-egg">
-			<img src="../skin/images/meizhongjiang.png" alt="">
+			<img src="../skin/images/zhongjiang.png" alt="" id="result-img">
 		</div>
 		<div class="result-content">
 			<!-- 未中奖 -->
