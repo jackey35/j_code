@@ -61,17 +61,19 @@
 		</div>
 		<div class="wenben">
 			<img src="../skin/images/wenben.png" alt="">
-			<p>所有关注开心宝公众号的粉丝均可参与</p>
+			<p>关注“开心宝财富”公众号即可参与</p>
 		</div>	
 		<div class="jiangli">
 			<img src="../skin/images/bg02.png" alt="">
 			<div class="neirong">
 				<p><span>特等奖：</span><span>苹果IphoneX256G手机一部</span></p>
-				<p><span>一等奖：</span><span>一百元手机话费</span></p>
+				<p><span>一等奖：</span><span>100元手机话费</span></p>
 				<p><span>二等奖：</span><span>50元手机话费</span></p>
-				<p><span>三等奖：</span><span>锅/书</span></p>
-				<p><span>普照奖：</span><span>50元首投现金红包</span></p>
-				<p><span>普照奖：</span><span>50元老用户投资红包</span></p>
+				<p><span>三等奖：</span><span>精品菜谱和铁锅</span></p>
+				<p><span>普照奖A：</span><span>50元现金红包</span></p>
+				<p>(平台注册后，账户可见，30日后可直接提现到个人银行卡)</p>
+				<p><span>普照奖B：</span><span>50元开心宝平台红包代金券</span></p>
+				<p>(不与平台其他活动共享，投资任意标的1万元以上可用)</p>
 			</div>
 		</div>	
 	</div>
@@ -91,7 +93,7 @@
 			<div class="winning hide">
 				<p class="head">
 					恭喜您！</br>
-					砸中头等奖!
+					砸中头等奖
 				</p>
 				<p class="prize">
 					获得X256G一部！
@@ -116,12 +118,17 @@
 					
 				</p>
 				<a id='submit' class="submit">提交</a>
+				<p class="tishi">
+					1、老朋友请填写开心宝平台注册手机号</br>
+					2、新朋友请填写常用手机号</br>
+					3、本活动兑奖信息将以用户填写为准，如有因填写出错而导致的任何问题，将由本人承担。
+				</p>	
 			</div>
 			<!-- 提交表单成功 -->
 			<div class="success hide">
 				<p class="head">
 					您的资料已提交</br>
-					我们会有客服人员跟您联系</br>
+					客服人员将于活动结束后五个工作日内与您联系奖品发放事宜</br>
 					请保持电话畅通！
 				</p>
 				<a class="submit close">确定</a>

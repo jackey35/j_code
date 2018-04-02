@@ -16,11 +16,11 @@ var openid = $('#openid').val();
 //winLevel 结果
 var winLevel = {
     1:['特等奖','苹果IphoneX256G手机一部'],
-    2:['一等奖：','一百元手机话费'],
+    2:['一等奖：','100元手机话费'],
     3:['二等奖：','50元手机话费'],
-    4:['三等奖：','锅/书'],
-    5:['普照奖：','50元首投现金红包'],
-    6:['普照奖：','50元老用户投资红包'],
+    4:['三等奖：','精品菜谱和铁锅'],
+    5:['普照奖A：','50元现金红包,扫描上方二维码领取'],
+    6:['普照奖B：','50元开心宝平台红包代金券'],
 }
 
 //httpStatus 结果
@@ -52,10 +52,18 @@ $('.za').click(function(event) { // 砸蛋事件
                 if(data.obj.winLevel!=0){
                     number--;
                     $('.winning').removeClass('hide');
-                    $('.winning .head').html('恭喜您！</br>砸中'+winLevel[data.obj.winLevel][0]+'!');
+                    $('.winning .head').html('恭喜您！</br>砸中'+winLevel[data.obj.winLevel][0]);
                     $('.winning .prize').html(winLevel[data.obj.winLevel][1]);
                     $('.success').addClass('hide');
-                    $('#result-img').attr('src','../skin/images/zhongjiang.png');
+                    if(data.obj.winLevel==5){
+                    		$('#result-img').attr('src',data.obj.qrUrl);
+                    		$('#receive').html('');
+                    		$('#receive').removeClass('submit');
+                    }else{
+                    		$('#result-img').attr('src','../skin/images/zhongjiang.png');
+                    		$('#receive').html('点击领取');
+                    		$('#receive').addClass('submit');
+                    }
                     winId = data.obj.winId
                 }else{
                     $('.lost').removeClass('hide').find('p').html('好可惜！</br>这个是空的！');
@@ -93,6 +101,11 @@ $('#submit').click(function(){
         }
     });
 })
+//表单提交成功之后  点击确认打开分享页面
+$('.success .submit').click(function(){
+    $('.lost').removeClass('hide');
+    $('.success').addClass('hide');
+});
 //关闭结果窗口
 $('a.close').click(function(){
     $('.result').addClass('hide');

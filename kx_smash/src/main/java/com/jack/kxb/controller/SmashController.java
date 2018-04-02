@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jack.kxb.dao.KxPrizeRepository;
+import com.jack.kxb.dao.KxQrRepository;
 import com.jack.kxb.dao.KxShareRepository;
 import com.jack.kxb.dao.KxSmashEggRepository;
 import com.jack.kxb.dao.KxUserRepository;
 import com.jack.kxb.model.KxPrize;
+import com.jack.kxb.model.KxQr;
 import com.jack.kxb.model.KxShare;
 import com.jack.kxb.model.KxSmashEgg;
 import com.jack.kxb.model.KxUser;
@@ -42,6 +44,8 @@ public class SmashController {
 	private KxSmashEggRepository kxSmashEggRepository;
 	@Autowired
 	private KxShareRepository kxShareRepository;
+	@Autowired
+	private KxQrRepository kxQrRepository;
 	@Autowired
 	private KxPrizeRepository kxPrizeRepository;
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -245,6 +249,17 @@ public class SmashController {
 		map.put("status", status);
 		map.put("winLevel", winLevel);
 		map.put("winId", egg.getId());
+		map.put("qrUrl", "");
+		
+		if(winLevel == 5) {
+			KxQr qr = kxQrRepository.getKxQrByStatusLimit();
+			if(qr != null) {
+				map.put("qrUrl", qr.getQrUrl());
+				qr.setStatus(1);
+				kxQrRepository.save(qr);
+			}
+		}
+		
 		return ResponseUtil.getResponseObject(1, map, "success");
 	}
 }

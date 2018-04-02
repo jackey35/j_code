@@ -118,20 +118,14 @@ a{
 		overflow: hidden;
 	}
 	.neirong p span{
-		display: block;
+		display: inline-block;
 		float: left;
-	}
-	.neirong p span:nth-child(1){
-		width: 2.3rem;
-	}
-	.neirong p span:nth-child(2){
-		width: 8rem;
 	}
 
 
 	.result{
 		background: rgba(0,0,0,0.9);
-		position: absolute;
+		position: fixed;
 		height: 100%;
 		width: 100%;
 		left: 0px;
@@ -151,7 +145,7 @@ a{
 	}
 
 	.result-content p.head{
-		font-size: .8rem;
+		font-size: .76rem;
 	}
 	.result-content p{
 		font-size: .6rem;
@@ -177,6 +171,13 @@ a{
 	.submit-from p.errorMsg{
 		font-size: .5rem;
 	}
+	.submit-from p.tishi{
+		text-align: left;
+		font-size: .55rem;
+		width: 80%;
+		margin: .9rem auto;
+		line-height: .8rem;
+	}
 	.submit-from p span{
 		display: inline-block;
 		height: 1rem;
@@ -190,6 +191,10 @@ a{
 		border: 1px solid #802b02;
 		width: 6rem;
 		padding: 0px 5px;
+	}
+	.success{
+		width: 80%;
+		margin: auto;
 	}
 	.hide{
 		display: none;
