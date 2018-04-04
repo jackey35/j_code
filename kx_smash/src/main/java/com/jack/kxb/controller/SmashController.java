@@ -76,6 +76,22 @@ public class SmashController {
 	}
 	
 	@ResponseBody
+	@RequestMapping("/smash/resetOpId")
+	public Map<String, Object> setTdjOpenId(String openIds) {
+		logger.info("setTdjOpenId,openids={}",openIds);
+		if(StringUtils.isEmpty(openIds)) {
+			return ResponseUtil.getResponseObject(0, null, "ids is null");
+		}
+		
+		tdjOpenIds.clear();
+		String[] aryOpenId = openIds.split(",");
+		for(String id : aryOpenId) {
+			tdjOpenIds.put(id, id);
+		}
+		return ResponseUtil.getResponseObject(1, openIds, "ids set success");
+	}
+	
+	@ResponseBody
 	@RequestMapping("/smash/wxverf")
 	public String wxverf(String signature,String timestamp,String nonce,String echostr){
 		logger.info("signature={},timestamp={},nonce={},echoStr={}",signature,timestamp,nonce,echostr);

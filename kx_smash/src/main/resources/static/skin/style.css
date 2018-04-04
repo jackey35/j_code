@@ -117,6 +117,9 @@ a{
 		margin: .2rem 0px;
 		overflow: hidden;
 	}
+	.neirong p.ts{
+		padding-left: 2.5rem;
+	}
 	.neirong p span{
 		display: inline-block;
 		float: left;

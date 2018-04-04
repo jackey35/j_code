@@ -27,7 +27,7 @@ var winLevel = {
 var ss = [];
 ss[0] = '系统异常';
 ss[100] = '今日抽奖机会已用完';
-ss[101] = '转发朋友圈赢取抽奖机会';
+ss[101] = '分享朋友圈赢取抽奖机会';
 ss[102] = '奖品已抽完';
 
 //测试数据
@@ -67,11 +67,15 @@ $('.za').click(function(event) { // 砸蛋事件
                     winId = data.obj.winId
                 }else{
                     $('.lost').removeClass('hide').find('p').html('好可惜！</br>这个是空的！');
+                    //$('.result-egg img').attr('src','../skin/images/share.png');
                 }
             }else{
                 console.log(ss , data.httpStatus);
                 $('.lost').removeClass('hide').find('p').html(ss[data.httpStatus]);
                 $('#result-img').attr('src','../skin/images/meizhongjiang.png');
+                if(ss[data.httpStatus] == 101){
+                		$('.result-egg img').attr('src','../skin/images/share.png');
+                }
             }
         }); 
     },500);
@@ -105,6 +109,7 @@ $('#submit').click(function(){
 $('.success .submit').click(function(){
     $('.lost').removeClass('hide');
     $('.success').addClass('hide');
+    $('.result-egg img').attr('src','../skin/images/share.png');
 });
 //关闭结果窗口
 $('a.close').click(function(){
@@ -112,4 +117,5 @@ $('a.close').click(function(){
     $('.jindan').attr('src','../skin/images/jindan.png');
     $('.chuizi').removeClass('zadan').hide();
     $('.result-content > div').addClass('hide');
+    $('.result-egg img').attr('src','../skin/images/zhongjiang.png');
 });

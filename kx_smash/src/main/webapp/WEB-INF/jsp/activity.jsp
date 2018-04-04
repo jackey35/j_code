@@ -71,9 +71,9 @@
 				<p><span>二等奖：</span><span>50元手机话费</span></p>
 				<p><span>三等奖：</span><span>精品菜谱和铁锅</span></p>
 				<p><span>普照奖A：</span><span>50元现金红包</span></p>
-				<p>(平台注册后，账户可见，30日后可直接提现到个人银行卡)</p>
+				<p class="ts">(平台注册后，账户可见，30日后可直接提现到个人银行卡)</p>
 				<p><span>普照奖B：</span><span>50元开心宝平台红包代金券</span></p>
-				<p>(不与平台其他活动共享，投资任意标的1万元以上可用)</p>
+				<p class="ts">(不与平台其他活动共享，投资任意标的1万元以上可用)</p>
 			</div>
 		</div>	
 	</div>
@@ -166,7 +166,6 @@
 	            link: link,
 	            imgUrl: protocol+'//'+host+'/skin/images/favicon.ico',// 自定义图标
 	            success: function (res) {//分享成功
-	                alert(res);
 	                $.post('http://www.jinxinsenhui.com/smash/share.do?openId='+openid,function(data){
 				        if(data.httpStatus==1){
 				            number++;
@@ -206,7 +205,6 @@
 	            }
 	        });
 	        wx.error(function (res) {
-	            alert(res.errMsg);
 	        });
     });
 </script>	
