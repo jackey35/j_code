@@ -21,6 +21,7 @@
 
 <link rel="stylesheet" type="text/css" href="../skin/style.css">
 <script type="text/javascript" src='../js/zepto.js'></script>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
 <style type="text/css" media="screen">
 	body{
 		background-image:url(../skin/images/bg.jpg),url(../skin/images/bg02.jpg),url(../skin/images/bg01.jpg);
@@ -28,7 +29,23 @@
 		background-repeat:no-repeat,no-repeat,repeat;
 		padding-bottom:1.3rem;
 	}
+	
+	ul,li{margin:0;padding:0}
+	#scrollDiv{width:300px;height:25px;line-height:25px;overflow:hidden}
+	#scrollDiv li{height:25px;padding-left:10px;}
 </style>
+<script type="text/javascript">
+function AutoScroll(obj){
+    $(obj).find("ul:first").animate({
+            marginTop:"-25px"
+    },500,function(){
+            $(this).css({marginTop:"0px"}).find("p:first").appendTo(this);
+    });
+}
+$(document).ready(function(){
+setInterval('AutoScroll("#scrollDiv")',1000)
+});
+</script>
 </head>
 <body>
 	<input type="hidden" id='openid' value='${openId}'>
@@ -78,19 +95,13 @@
 				<p><span>普照奖B：</span><span>50元开心宝平台红包代金券</span></p>
 				<p class="ts">(不与平台其他活动共享，投资任意标的1万元以上可用)</p>
 			</div>
-			<div>
-				<p>最新获奖用户</p>
+			<div class="jiangli"><p><span>最新获奖用户</span></p></div>
+			<div class="neirong" id="scrollDiv">
+				<ul>
 				<c:forEach items="${winList}" var="p" varStatus="varStatus">
-				<p><span>恭喜用户"${p.name}"获得
-				<c:if test="${p.winLevel==1}">特等奖</c:if>
-				<c:if test="${p.winLevel==2}">一等奖</c:if>
-				<c:if test="${p.winLevel==3}">二等奖</c:if>
-				<c:if test="${p.winLevel==4}">三等奖</c:if>
-				<c:if test="${p.winLevel==5}">普照奖A</c:if>
-				<c:if test="${p.winLevel==6}">普照奖B</c:if>
-				</span></p>
-				
+				<p><span>恭喜用户"${fn:substring(p.phone, 0, 3)}******* "获得<c:if test="${p.winLevel==1}">特等奖</c:if><c:if test="${p.winLevel==2}">一等奖</c:if><c:if test="${p.winLevel==3}">二等奖</c:if><c:if test="${p.winLevel==4}">三等奖</c:if><c:if test="${p.winLevel==5}">普照奖A</c:if><c:if test="${p.winLevel==6}">普照奖B</c:if></span></p>
 				</c:forEach>
+				</ul>
 			</div>
 		</div>	
 	</div>
