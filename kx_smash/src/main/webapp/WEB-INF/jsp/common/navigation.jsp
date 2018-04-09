@@ -14,6 +14,7 @@
 			<li id="_mid_" ><a href="/admin/prize/list.do" >奖品管理</a></li>
 			<li id="_mid_" ><a href="/admin/winning/list.do" >中奖纪录</a></li>
 			<li id="_mid_" ><a href="/admin/prize/qr.do" >上传二维码</a></li>
+			<li id="_mid_" ><a href="/admin/config/edit.do" >活动设置</a></li>
 			</ul>
 		</div>
 	</div>

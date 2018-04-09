@@ -12,6 +12,7 @@ public class KxQr {
 	private Long id;
 	private String qrUrl;
 	private int status;
+	private String openId;
 	private String createDt;
 	
 	@Id
@@ -39,5 +40,11 @@ public class KxQr {
 	}
 	public void setCreateDt(String createDt) {
 		this.createDt = createDt;
+	}
+	public String getOpenId() {
+		return openId;
+	}
+	public void setOpenId(String openId) {
+		this.openId = openId;
 	}
 }

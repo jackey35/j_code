@@ -19,7 +19,7 @@ var winLevel = {
     2:['一等奖：','100元手机话费'],
     3:['二等奖：','50元手机话费'],
     4:['三等奖：','精品菜谱和铁锅'],
-    5:['普照奖A：','50元现金红包,扫描上方二维码领取'],
+    5:['普照奖A：','50元现金红包'],
     6:['普照奖B：','50元开心宝平台红包代金券'],
 }
 
@@ -29,6 +29,8 @@ ss[0] = '系统异常';
 ss[100] = '今日抽奖机会已用完';
 ss[101] = '分享朋友圈赢取抽奖机会';
 ss[102] = '奖品已抽完';
+ss[103] = '活动尚未开始';
+ss[104] = '活动已结束';
 
 //测试数据
 var data = {
@@ -47,34 +49,34 @@ $('.za').click(function(event) { // 砸蛋事件
     },150);
     setTimeout(function(){
         $.post('http://www.jinxinsenhui.com/smash/zha.do?openId='+openid,function(data){
-            $('.result').removeClass('hide');
+            $('.winLevel').removeClass('hide');
             if(data.httpStatus == 1){
-                if(data.obj.winLevel!=0){
+            	   $('#winLevel').val(data.obj.winLevel);
+                $('#qrUrl').val(data.obj.qrUrl);
+                 
+                if(data.obj.winLevel<7){
                     number--;
                     $('.winning').removeClass('hide');
                     $('.winning .head').html('恭喜您！</br>砸中'+winLevel[data.obj.winLevel][0]);
                     $('.winning .prize').html(winLevel[data.obj.winLevel][1]);
                     $('.success').addClass('hide');
-                    if(data.obj.winLevel==5){
-                    		$('#result-img').attr('src',data.obj.qrUrl);
-                    		$('#receive').html('');
-                    		$('#receive').removeClass('submit');
-                    }else{
-                    		$('#result-img').attr('src','../skin/images/zhongjiang.png');
-                    		$('#receive').html('点击领取');
-                    		$('#receive').addClass('submit');
-                    }
+                    
+                    $('#result-img').attr('src','../skin/images/zhongjiang.png');
+                    $('#receive').html('点击领取');
+                    $('#receive').addClass('submit');
                     winId = data.obj.winId
                 }else{
-                    $('.lost').removeClass('hide').find('p').html('好可惜！</br>这个是空的！');
-                    //$('.result-egg img').attr('src','../skin/images/share.png');
+                	    $('#result-img').attr('src','../skin/images/meizhongjiang.png');
+                    $('.lost').removeClass('hide').find('p').html('</br>谢谢参与！');
                 }
             }else{
                 console.log(ss , data.httpStatus);
                 $('.lost').removeClass('hide').find('p').html(ss[data.httpStatus]);
-                $('#result-img').attr('src','../skin/images/meizhongjiang.png');
-                if(ss[data.httpStatus] == 101){
-                		$('.result-egg img').attr('src','../skin/images/share.png');
+                
+                if(data.httpStatus == 101){
+                		$('#result-img').attr('src','../skin/images/share.png');
+                }else{
+                		$('#result-img').attr('src','../skin/images/meizhongjiang.png');
                 }
             }
         }); 
@@ -94,12 +96,24 @@ userStatus[103] = '非法中奖信息';
 userStatus[103] = '中奖信息重复提交';
 //提交表单 用户信息
 $('#submit').click(function(){
-    var name = $('#name').val(),phone=$('#phone').val(),address = $('#address').val();
-    $.post('http://www.jinxinsenhui.com/smash/winning.do?phone='+phone+'&name='+name+'&address='+address+
+    var name = $('#name').val(),phone=$('#phone').val();
+    $.post('http://www.jinxinsenhui.com/smash/winning.do?phone='+phone+'&name='+name+
        '&openId='+openid+'&winId='+winId,function(data){
         if(data.httpStatus==1){
-            $('.submit-from').addClass('hide');
-            $('.success').removeClass('hide')
+            var wLevel = $("#winLevel").val();
+            var qrUrl = $("#qrUrl").val();
+            if(wLevel == 5){
+            	    $('.submit-from').addClass('hide');
+            	    $('.winning').removeClass('hide');
+                $('.winning .head').html('此二维码是兑奖的唯一凭证，请截图妥善保管');
+            	    $('#result-img').attr('src',qrUrl);
+            	    $('.winning .prize').html('');
+            	    $('#receive').html('');
+                $('#receive').removeClass('submit');
+            }else{
+            		$('.submit-from').addClass('hide');
+                $('.success').removeClass('hide')
+            }
         }else{
             $('.submit-from p.errorMsg').html(userStatus[data.httpStatus]);
         }

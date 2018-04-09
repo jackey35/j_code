@@ -20,7 +20,7 @@ public class KxQrRepositoryImpl implements KxQrRepositoryCustom {
 	@SuppressWarnings("unchecked")
 	@Override
 	public KxQr getKxQrByStatusLimit() {
-		Query query = entityManager.createNativeQuery("select id,qr_url,status,create_dt "
+		Query query = entityManager.createNativeQuery("select id,qr_url,open_id,status,create_dt "
 				+ "from kx_qr where status=0 order by id desc limit 0,1",KxQr.class);
 		
 		List<KxQr>  list = (List<KxQr>)query.getResultList();

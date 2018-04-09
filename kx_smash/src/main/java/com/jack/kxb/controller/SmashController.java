@@ -1,5 +1,6 @@
 package com.jack.kxb.controller;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,6 +29,7 @@ import com.jack.kxb.model.KxQr;
 import com.jack.kxb.model.KxShare;
 import com.jack.kxb.model.KxSmashEgg;
 import com.jack.kxb.model.KxUser;
+import com.jack.kxb.util.ActConfigUtil;
 import com.jack.kxb.util.AesException;
 import com.jack.kxb.util.HttpUtil;
 import com.jack.kxb.util.MD5Util;
@@ -51,11 +53,15 @@ public class SmashController {
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static final SimpleDateFormat sdfdt = new SimpleDateFormat("yyyy-MM-dd");
 	private ConcurrentHashMap<String,List<KxPrize>> listMap = new ConcurrentHashMap<String,List<KxPrize>>();
-	private static Map<String,String> tdjOpenIds = new HashMap<String,String>();
+	/*private static Map<String,String> tdjOpenIds = new HashMap<String,String>();
+	private static Map<String,String> actStartEndDt = new HashMap<String,String>();
 	static {
 		tdjOpenIds.put("12345", "12345");
 		tdjOpenIds.put("123456", "123456");
-	}
+		actStartEndDt.put("sdt", "2018-04-24 00:00:00");
+		actStartEndDt.put("edt", "2018-04-30 23:59:59");
+		
+	}*/
 	@RequestMapping("/smash/index")
 	/**
 	 * 引导从定向微信授权url
@@ -77,17 +83,22 @@ public class SmashController {
 	
 	@ResponseBody
 	@RequestMapping("/smash/resetOpId")
-	public Map<String, Object> setTdjOpenId(String openIds) {
-		logger.info("setTdjOpenId,openids={}",openIds);
+	public Map<String, Object> setTdjOpenId(String openIds,String sdt,String edt) {
+		logger.info("setTdjOpenId,openids={},sdt={},edt={}",openIds,sdt,edt);
 		if(StringUtils.isEmpty(openIds)) {
 			return ResponseUtil.getResponseObject(0, null, "ids is null");
 		}
 		
-		tdjOpenIds.clear();
+		ActConfigUtil.tdjOpenIds.clear();
 		String[] aryOpenId = openIds.split(",");
 		for(String id : aryOpenId) {
-			tdjOpenIds.put(id, id);
+			ActConfigUtil.tdjOpenIds.put(id, id);
 		}
+		
+		ActConfigUtil.actStartEndDt.clear();
+		ActConfigUtil.actStartEndDt.put("sdt", sdt+" 00:00:00");
+		ActConfigUtil.actStartEndDt.put("edt", edt+" 23:59:59");
+		
 		return ResponseUtil.getResponseObject(1, openIds, "ids set success");
 	}
 	
@@ -204,6 +215,21 @@ public class SmashController {
 	@RequestMapping("/smash/zha")
 	public Map<String, Object> smashEgg(ModelMap map ,String openId){
 		logger.info("smash egg,openId={}",openId);
+		Date date = new Date();
+		try {
+			Date sDate = sdf.parse(ActConfigUtil.actStartEndDt.get("sdt") +" 00:00:00");
+			Date eDate = sdf.parse(ActConfigUtil.actStartEndDt.get("edt")+" 23:59:59");
+			if(date.compareTo(sDate) < 0 ) {
+				return ResponseUtil.getResponseObject(103, null, "活动尚未开始");
+			}
+			if(date.compareTo(eDate) > 0){
+				return ResponseUtil.getResponseObject(104, null, "活动已结束");
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		
 		if(StringUtils.isEmpty(openId)) {
 			return ResponseUtil.getResponseObject(0, null, "非法用户");
 		}
@@ -242,7 +268,7 @@ public class SmashController {
 		logger.info("smash egg,openId={}，winLevel={},prizeCnt={}",openId,kxPrize.getPrizeLevel(),kxPrize.getPrizeCnt());
 		if(kxPrize.getPrizeCnt()>0) {
 			winLevel = kxPrize.getPrizeLevel();
-			if(winLevel == 1 && !tdjOpenIds.containsKey(openId)) {//非指定用户中特等奖，降级阳光普照奖
+			if(winLevel == 1 && !ActConfigUtil.tdjOpenIds.containsKey(openId)) {//非指定用户中特等奖，降级阳光普照奖
 				kxPrize = list.get((System.currentTimeMillis()/2==0)?6:5);
 				winLevel = kxPrize.getPrizeLevel();
 			}
@@ -272,6 +298,7 @@ public class SmashController {
 			if(qr != null) {
 				map.put("qrUrl", qr.getQrUrl());
 				qr.setStatus(1);
+				qr.setOpenId(openId);
 				kxQrRepository.save(qr);
 			}
 		}

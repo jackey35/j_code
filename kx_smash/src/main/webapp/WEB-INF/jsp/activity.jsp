@@ -23,14 +23,17 @@
 <script type="text/javascript" src='../js/zepto.js'></script>
 <style type="text/css" media="screen">
 	body{
-		background:url(../skin/images/bg.jpg) no-repeat center top #000;
-		background-size: 100%; 
-		height: 23.6rem;
+		background-image:url(../skin/images/bg.jpg),url(../skin/images/bg02.jpg),url(../skin/images/bg01.jpg);
+		background-position:center top,center bottom, center center;
+		background-repeat:no-repeat,no-repeat,repeat;
+		padding-bottom:1.3rem;
 	}
 </style>
 </head>
 <body>
 	<input type="hidden" id='openid' value='${openId}'>
+	<input type="hidden" id='winLevel' value='${winLevel}'>
+	<input type="hidden" id='qrUrl' value='${qrUrl}'>
 	<div class="index">
 		
 		<div class="dan">
@@ -75,6 +78,16 @@
 				<p><span>普照奖B：</span><span>50元开心宝平台红包代金券</span></p>
 				<p class="ts">(不与平台其他活动共享，投资任意标的1万元以上可用)</p>
 			</div>
+			<!--
+			<img src="../skin/images/bg02.png" alt="">
+			<div>
+				<p>最新获奖用户</p>
+				<p><span>AAA获得一等奖：</span><span>100元手机话费</span></p>
+				<p><span>BB获得二等奖：</span><span>50元手机话费</span></p>
+				<p><span>CCC获得三等奖：</span><span>精品菜谱和铁锅</span></p>
+				<p><span>EEE获得普照奖A：</span><span>50元现金红包</span></p>
+				<p><span>FFF获得普照奖B：</span><span>50元开心宝平台红包代金券</span></p>
+			</div>-->
 		</div>	
 	</div>
 	<div class="result hide">
@@ -109,10 +122,6 @@
 				<p>
 					<span>手机号</span>
 					<input id='phone' type="" name="">
-				</p>
-				<p>
-					<span>地 &nbsp;&nbsp;址</span>
-					<input id='address' type="" name="">
 				</p>
 				<p class="errorMsg">
 					

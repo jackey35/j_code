@@ -25,7 +25,7 @@ import com.jack.kxb.model.KxQr;
 public class FileUtil {
 	private static Logger logger = LoggerFactory.getLogger("FileUtil");
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	private static List<String> allowedFile = Arrays.asList("application/zip");
+	private static List<String> allowedFile = Arrays.asList("application/zip","application/octet-stream");
 	private static String QR_PATH="/usr/local/nginx/html/skin/qr/";
 	//private static String QR_PATH="/Users/hejackey/Documents/test/";
 	public static String uplaodFile(@RequestParam MultipartFile image) throws Exception {
