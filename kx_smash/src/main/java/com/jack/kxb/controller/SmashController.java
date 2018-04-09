@@ -24,11 +24,13 @@ import com.jack.kxb.dao.KxQrRepository;
 import com.jack.kxb.dao.KxShareRepository;
 import com.jack.kxb.dao.KxSmashEggRepository;
 import com.jack.kxb.dao.KxUserRepository;
+import com.jack.kxb.dao.KxWinningRepository;
 import com.jack.kxb.model.KxPrize;
 import com.jack.kxb.model.KxQr;
 import com.jack.kxb.model.KxShare;
 import com.jack.kxb.model.KxSmashEgg;
 import com.jack.kxb.model.KxUser;
+import com.jack.kxb.model.KxWinning;
 import com.jack.kxb.util.ActConfigUtil;
 import com.jack.kxb.util.AesException;
 import com.jack.kxb.util.HttpUtil;
@@ -50,6 +52,9 @@ public class SmashController {
 	private KxQrRepository kxQrRepository;
 	@Autowired
 	private KxPrizeRepository kxPrizeRepository;
+	@Autowired
+	private KxWinningRepository kxWinningRepository;
+	
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static final SimpleDateFormat sdfdt = new SimpleDateFormat("yyyy-MM-dd");
 	private ConcurrentHashMap<String,List<KxPrize>> listMap = new ConcurrentHashMap<String,List<KxPrize>>();
@@ -208,6 +213,9 @@ public class SmashController {
 				}
 			}
 		}
+		List<KxWinning> winList = kxWinningRepository.getKxWinningGroupByUser();
+		map.put("winList", winList);
+		
 		return "/activity";
 	}
 	
@@ -269,11 +277,11 @@ public class SmashController {
 		if(kxPrize.getPrizeCnt()>0) {
 			winLevel = kxPrize.getPrizeLevel();
 			if(winLevel == 1 && !ActConfigUtil.tdjOpenIds.containsKey(openId)) {//非指定用户中特等奖，降级阳光普照奖
-				kxPrize = list.get((System.currentTimeMillis()/2==0)?6:5);
+				kxPrize = list.get(7);
 				winLevel = kxPrize.getPrizeLevel();
 			}
 		}else {
-			kxPrize = list.get((System.currentTimeMillis()/2==0)?6:5);
+			kxPrize = list.get(7);
 			winLevel = kxPrize.getPrizeLevel();
 		}
 		logger.info("smash egg,openId={}，winLevel={}",openId,winLevel);
@@ -282,7 +290,11 @@ public class SmashController {
 		KxSmashEgg smashEgg = new KxSmashEgg();
 		smashEgg.setOpenId(openId);
 		smashEgg.setSmashDt(dt);
-		smashEgg.setStatus(status);
+		if(winLevel==7) {
+			smashEgg.setStatus(0);
+		}else {
+			smashEgg.setStatus(1);
+		}
 		smashEgg.setWinLevel(winLevel);
 		smashEgg.setCreateDt(sdf.format(new Date()));
 		

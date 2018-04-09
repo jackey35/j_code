@@ -63,6 +63,11 @@ public class KxWinningController {
 		if(kxWinning != null) {
 			return ResponseUtil.getResponseObject(104, null, "中奖信息已提交");
 		}
+		
+		KxSmashEgg smashEgg = kxSmashEggRepository.findOne(winning.getWinId());
+		if(smashEgg != null) {
+			winning.setWinLevel(smashEgg.getWinLevel());
+		}
 		winning.setCreateDt(sdf.format(new Date()));
 		kxWinningRepository.save(winning);
 		

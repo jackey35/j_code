@@ -29,5 +29,4 @@ public class KxUserRepositoryImpl implements KxUserRepositoryCustom {
 		}
 		 return null;
 	}
-
 }

@@ -29,7 +29,7 @@ public class KxWinningRepositoryImpl implements KxWinningRepositoryCustom {
 		}
 		
 		
-		Query query = entityManager.createNativeQuery("select id,name,phone,address,open_id,win_id,create_dt "
+		Query query = entityManager.createNativeQuery("select id,name,phone,address,open_id,win_id,win_level,create_dt "
 				+ "from kx_winning where "+cond+" limit "+start+","+size,KxWinning.class);
 		
 		List<KxWinning>  list = (List<KxWinning>)query.getResultList();
@@ -41,7 +41,7 @@ public class KxWinningRepositoryImpl implements KxWinningRepositoryCustom {
 	@SuppressWarnings("unchecked")
 	@Override
 	public KxWinning getKxWinningByOpenIdAndWinId(String openId, Long winId) {
-		Query query = entityManager.createNativeQuery("select id,name,phone,address,open_id,win_id,create_dt "
+		Query query = entityManager.createNativeQuery("select id,name,phone,address,open_id,win_id,win_level,create_dt "
 				+ "from kx_winning where open_id='"+openId+"' and win_id="+winId,KxWinning.class);
 		
 		List<KxWinning>  list = (List<KxWinning>)query.getResultList();
@@ -70,6 +70,18 @@ public class KxWinningRepositoryImpl implements KxWinningRepositoryCustom {
 		}
 		
 		return 0;
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<KxWinning> getKxWinningGroupByUser() {
+		Query query = entityManager.createNativeQuery("select id,name,phone,address,open_id,win_id,win_level,create_dt "
+				+ "from kx_winning group by open_id order by win_level asc limit 0,20",KxWinning.class);
+		
+		List<KxWinning>  list = (List<KxWinning>)query.getResultList();
+		if(list != null && list.size() > 0) {
+			return list;
+		}
+		 return null;
 	}
 
 }

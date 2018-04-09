@@ -8,4 +8,5 @@ public interface KxWinningRepositoryCustom {
 	public List<KxWinning> getKxWinningByCond(KxWinning kxWinning,int start,int size);
 	public int cntKxWinningByCond(KxWinning kxWinning);
 	public KxWinning getKxWinningByOpenIdAndWinId(String openId,Long winId);
+	public List<KxWinning> getKxWinningGroupByUser();
 }

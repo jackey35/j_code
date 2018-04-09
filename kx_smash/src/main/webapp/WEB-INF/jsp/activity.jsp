@@ -78,16 +78,20 @@
 				<p><span>普照奖B：</span><span>50元开心宝平台红包代金券</span></p>
 				<p class="ts">(不与平台其他活动共享，投资任意标的1万元以上可用)</p>
 			</div>
-			<!--
-			<img src="../skin/images/bg02.png" alt="">
 			<div>
 				<p>最新获奖用户</p>
-				<p><span>AAA获得一等奖：</span><span>100元手机话费</span></p>
-				<p><span>BB获得二等奖：</span><span>50元手机话费</span></p>
-				<p><span>CCC获得三等奖：</span><span>精品菜谱和铁锅</span></p>
-				<p><span>EEE获得普照奖A：</span><span>50元现金红包</span></p>
-				<p><span>FFF获得普照奖B：</span><span>50元开心宝平台红包代金券</span></p>
-			</div>-->
+				<c:forEach items="${winList}" var="p" varStatus="varStatus">
+				<p><span>恭喜用户"${p.name}"获得
+				<c:if test="${p.winLevel==1}">特等奖</c:if>
+				<c:if test="${p.winLevel==2}">一等奖</c:if>
+				<c:if test="${p.winLevel==3}">二等奖</c:if>
+				<c:if test="${p.winLevel==4}">三等奖</c:if>
+				<c:if test="${p.winLevel==5}">普照奖A</c:if>
+				<c:if test="${p.winLevel==6}">普照奖B</c:if>
+				</span></p>
+				
+				</c:forEach>
+			</div>
 		</div>	
 	</div>
 	<div class="result hide">
