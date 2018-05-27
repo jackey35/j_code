@@ -50,6 +50,34 @@ tr:nth-child(odd){background:#f6f6f6;}
 	<script type="text/javascript" src="../js/jquery-ui-1.9.2.custom.min.js"></script>
 	<script type="text/javascript" src="../js/highcharts.js"></script>
 	<script type="text/javascript" src="../js/jquery.autocomplete.pack.js"></script>
+	<script type="text/javascript">
+		$().ready(function(){
+			$("#queryUser input[name=sdt]").datepicker({dateFormat: "yy-mm-dd"});
+			$("#queryUser input[name=edt]").datepicker({dateFormat: "yy-mm-dd"});
+		});
+		
+		$(function(){
+		    $("#exportExcel").click(function(){
+		    	var name = $("#name").val();
+	    		var phone = $("#phone").val();
+	    		var sdt = $("#sdt").val();
+	    		var edt = $("#edt").val();
+	    		var newUrl = 'http://www.jinxinsenhui.com/admin/winning/export.do?name='+name+"&phone="+phone+",sdt="+sdt+",edt="+edt;    //设置新提交地址
+	        $("#queryForm").attr('action',newUrl);    //通过jquery为action属性赋值
+	        $("#queryForm").submit();    //提交ID为myform的表单
+		    });
+		    
+		    $("#query-list").click(function(){
+		    	var name = $("#name").val();
+	    		var phone = $("#phone").val();
+	    		var sdt = $("#sdt").val();
+	    		var edt = $("#edt").val();
+	    		var newUrl = 'http://www.jinxinsenhui.com/admin/winning/list.do?name='+name+"&phone="+phone+",sdt="+sdt+",edt="+edt;    //设置新提交地址
+	        $("#queryForm").attr('action',newUrl);    //通过jquery为action属性赋值
+	        $("#queryForm").submit();    //提交ID为myform的表单
+		    })
+		})
+	</script>
 </head>
 <body>
 	<jsp:include page="../common/admin_head.jsp"></jsp:include>
@@ -61,7 +89,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 			<br />
 			<div class="breadcrumb"><font>中奖纪录</font>
 		     </div>
-			<form action="<%=request.getContextPath() %>/admin/winning/list.do"  method="get">
+			<form action="<%=request.getContextPath() %>/admin/winning/list.do"  method="get" id="queryForm">
 			<div class="dateSelect mB15 ovh" id="queryUser">
 				<div class="fl ftD mB8">
 					<div class="ftDw cfix">
@@ -78,11 +106,30 @@ tr:nth-child(odd){background:#f6f6f6;}
 						</label>
 					</div>
 				</div>
+			    <div class="ft fl gray"></div>
+				<div class="fl ftD">
+					<div class="ftDw cfix">
+						<p class="fl">开始时间</p>
+						<input type="text" class="txte gray fl" name="sdt"  id="sdt" value="${kxWinning.sdt }"/>
+					</div>
+				</div>
+				<div class="ft fl gray"></div>
+				<div class="fl ftD">
+					<div class="ftDw cfix">
+						<p class="fl">截止时间</p>
+						<input type="text" class="txte gray fl" name="edt"  id="edt" value="${kxWinning.edt }"/>
+					</div>
+				</div>
 				<div class="ft fl gray"></div>
 				<div class="fl ftD mB8">
 					<div class="ftDw cfix">
-						<span class="bnta mL10"><input type="submit" 
-							id="query-aiDetect-list" value="查 询" /></span>
+						<span class="bnta mL10"><input type="button"  
+							id="query-list" value="查 询" /></span>
+					</div>
+				</div>
+				<div class="fl ftD mB8">
+					<div class="ftDw cfix">
+						<span class="bnta mL10"><input type="button" id="exportExcel" name="exportExcel" value="导出excel" /></span>
 					</div>
 				</div>
 			</div>
@@ -108,7 +155,7 @@ tr:nth-child(odd){background:#f6f6f6;}
 							<c:if test="${kxWinning.winLevel==2}">一等奖</c:if>
 							<c:if test="${kxWinning.winLevel==3}">二等奖</c:if>
 							<c:if test="${kxWinning.winLevel==4}">三等奖</c:if>
-							<c:if test="${kxWinning.winLevel==5}">阳光普照奖50新手</c:if>
+							<c:if test="${kxWinning.winLevel==5}">小确幸30元现金兑换码</c:if>
 							<c:if test="${kxWinning.winLevel==6}">阳光普照奖50老客户</c:if>
 							</td>
 							<td>${kxWinning.createDt}</td>

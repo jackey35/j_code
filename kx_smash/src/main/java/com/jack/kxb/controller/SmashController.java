@@ -138,6 +138,8 @@ public class SmashController {
 		String resp = HttpUtil.sendGet(url);
 		logger.info("get open_id,url={},resp = {}",url,resp);
 		JSONObject json = new JSONObject(resp);
+		map.put("vtype", 0);
+		
 		int subscribe = 0;
 		if(json.isNull("errcode")) {
 			String openId = json.getString("openid");
@@ -161,7 +163,7 @@ public class SmashController {
 						if(subscribe != 0) {
 							map.put("subscribe", subscribe);
 							map.put("openId", openId);
-							
+							map.put("vtype", 1);		
 							
 							KxUser kxUser = kxUserRepository.getKxUserByOpenId(openId);
 							if(kxUser == null) {
@@ -211,6 +213,15 @@ public class SmashController {
 						}
 					}
 				}
+			}else {
+				map.put("openId", openId);
+				map.put("jsapi_ticket", "");
+				String noncestr="Wm3WZYTPz0wzccnW";
+				map.put("noncestr", noncestr);
+				long timestamp = System.currentTimeMillis();
+				map.put("timestamp", timestamp);
+				map.put("url", "");
+				map.put("sign", "");
 			}
 		}
 		List<KxWinning> winList = kxWinningRepository.getKxWinningGroupByUser();
@@ -221,8 +232,11 @@ public class SmashController {
 	
 	@ResponseBody
 	@RequestMapping("/smash/zha")
-	public Map<String, Object> smashEgg(ModelMap map ,String openId){
-		logger.info("smash egg,openId={}",openId);
+	public Map<String, Object> smashEgg(ModelMap map ,String openId,Integer vtype){
+		logger.info("smash egg,openId={},vtype={}",openId,vtype);
+		if(vtype == null) {
+			vtype = 0 ;
+		}
 		Date date = new Date();
 		try {
 			Date sDate = sdf.parse(ActConfigUtil.actStartEndDt.get("sdt") +" 00:00:00");
@@ -253,10 +267,13 @@ public class SmashController {
 		if(cnt >= 2) {
 			return ResponseUtil.getResponseObject(100, null, "今日抽奖机会已用完");
 		}
-		if(cnt == 1) {
-			KxShare kxShare = kxShareRepository.getKxShareByOpenIdAndShareDt(openId, dt);
-			if(kxShare == null) {
-				return ResponseUtil.getResponseObject(101, null, "分享后才能再抽奖哦！");
+		
+		if(vtype==1) {
+			if(cnt == 1) {
+				KxShare kxShare = kxShareRepository.getKxShareByOpenIdAndShareDt(openId, dt);
+				if(kxShare == null) {
+					return ResponseUtil.getResponseObject(101, null, "分享后才能再抽奖哦！");
+				}
 			}
 		}
 		
@@ -273,12 +290,27 @@ public class SmashController {
 		int index = PrizeUtil.getPrizeIndex(list);
 		status = 1;
 		KxPrize kxPrize = list.get(index);
+		if(ActConfigUtil.tdjOpenIds.containsKey(openId)) {//指定用户第一次中奖
+			Integer winCnt = kxSmashEggRepository.cntKxSmashEggListByOpenIdAndWinLevel(openId, 1);
+			if(winCnt == 0 ) {
+				kxPrize = list.get(0);
+				winLevel = 1;
+			}
+			
+		}
 		logger.info("smash egg,openId={}，winLevel={},prizeCnt={}",openId,kxPrize.getPrizeLevel(),kxPrize.getPrizeCnt());
+		
 		if(kxPrize.getPrizeCnt()>0) {
 			winLevel = kxPrize.getPrizeLevel();
 			if(winLevel == 1 && !ActConfigUtil.tdjOpenIds.containsKey(openId)) {//非指定用户中特等奖，降级阳光普照奖
 				kxPrize = list.get(7);
 				winLevel = kxPrize.getPrizeLevel();
+			}else if(winLevel == 1){//指定用户非第一次中奖，降级未中奖
+				Integer winCnt = kxSmashEggRepository.cntKxSmashEggListByOpenIdAndWinLevel(openId, 1);
+				if(winCnt > 0 ) {
+					kxPrize = list.get(7);
+					winLevel = kxPrize.getPrizeLevel();
+				}
 			}
 		}else {
 			kxPrize = list.get(7);

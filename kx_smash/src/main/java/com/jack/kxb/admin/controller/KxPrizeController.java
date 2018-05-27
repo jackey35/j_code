@@ -66,8 +66,10 @@ public class KxPrizeController {
 		if(id != 0) {
 			KxPrize prize = kxPrizeRepository.findOne(id);
 			if(prize != null) {
+				String createDt = prize.getCreateDt();
 				BeanUtils.copyProperties(kxPrize, prize);
 				prize.setUpdateDt(sdf.format(new Date()));
+				prize.setCreateDt(createDt);
 				
 				kxPrizeRepository.save(prize);
 			}

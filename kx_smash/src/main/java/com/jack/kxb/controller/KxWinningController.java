@@ -1,5 +1,7 @@
 package com.jack.kxb.controller;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,7 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +30,7 @@ import com.jack.kxb.model.KxPrize;
 import com.jack.kxb.model.KxSmashEgg;
 import com.jack.kxb.model.KxUser;
 import com.jack.kxb.model.KxWinning;
+import com.jack.kxb.util.ExcelUtil;
 import com.jack.kxb.util.PageUtil;
 import com.jack.kxb.util.ResponseUtil;
 
@@ -105,5 +111,52 @@ public class KxWinningController {
 		request.setAttribute("pageCount", PageUtil.getPage(count, PageUtil.PAGE_SIZE));
 	
 		return "win/list";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/admin/winning/export")
+	public void export(ModelMap map ,HttpServletResponse response,HttpServletRequest request,KxWinning kxWinning,Integer start) {
+		List<KxWinning> list = new ArrayList<KxWinning>();
+		if(start == null) {
+			start = 0;
+		}
+		list = kxWinningRepository.getKxWinningByCond(kxWinning, start, 60000);
+		
+		List<String> titleList = new ArrayList<String>();
+		titleList.add("姓名");
+		titleList.add("手机号");
+		titleList.add("中奖级别");
+		titleList.add("中奖时间");
+		
+		Workbook wb = new HSSFWorkbook();
+		ExcelUtil.exportExcel(wb,"test.xls",list,titleList);
+		response.setContentType("application/vnd.ms-excel");     
+		response.setHeader("Content-disposition", "attachment;filename=" + "test.xls");  
+		OutputStream ouputStream = null;
+		try {
+			ouputStream = response.getOutputStream();
+			wb.write(ouputStream);     
+			ouputStream.flush();     
+			ouputStream.close();   
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(ouputStream!=null) {
+				try {
+					ouputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}   
+			}
+		}  
+	}
+	
+	@RequestMapping("/smash/winning/list")
+	public String userWinningList(ModelMap map ,String openId) {
+		logger.info("userWinningList openid = {}",openId);
+		List<KxWinning> list = kxWinningRepository.getKxWinningByOpenId(openId);
+		map.put("list", list);
+	
+		return "win/user_list";
 	}
 }

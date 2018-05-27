@@ -30,7 +30,25 @@ public class KxSmashEggRepositoryImpl implements KxSmashEggRepositoryCustom {
 			return 0;
 		}catch(Exception e) {
 			e.printStackTrace();
-			return null;
+			return 0;
+		}
+	}
+	@SuppressWarnings("unchecked")
+	@Override
+	public Integer cntKxSmashEggListByOpenIdAndWinLevel(String openId, int winLevel) {
+		try {
+			Query query = entityManager.createNativeQuery("select id,open_id,status,win_level,smash_dt,create_dt "
+					+ "from kx_smash_egg where open_id='"+openId+"' and status = 1 and win_level="+winLevel,KxSmashEgg.class);
+			
+			List<KxSmashEgg>  list = (List<KxSmashEgg>)query.getResultList();
+			if(list != null && list.size() > 0) {
+				return list.size();
+			}
+			
+			return 0;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return 10000;
 		}
 	}
 

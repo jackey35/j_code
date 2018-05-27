@@ -20,8 +20,10 @@
 
 
 <link rel="stylesheet" type="text/css" href="../skin/style.css">
+<link rel="stylesheet" type="text/css" href="../skin/liMarquee.css">
 <script type="text/javascript" src='../js/zepto.js'></script>
-<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src='../js/jquery-1.8.3.min.js'></script>
+<script type="text/javascript" src='../js/jquery.liMarquee.js'></script>
 <style type="text/css" media="screen">
 	body{
 		background-image:url(../skin/images/bg.jpg),url(../skin/images/bg02.jpg),url(../skin/images/bg01.jpg);
@@ -29,33 +31,25 @@
 		background-repeat:no-repeat,no-repeat,repeat;
 		padding-bottom:1.3rem;
 	}
-	
-	ul,li{margin:0;padding:0}
-	#scrollDiv{width:300px;height:25px;line-height:25px;overflow:hidden}
-	#scrollDiv li{height:25px;padding-left:10px;}
+	.str_wrap{
+	    height: 3.5rem;
+	    background: transparent;
+	    padding: 0rem 0px;
+	    position: relative;
+	    top: 1.2rem;
+	}
 </style>
-<script type="text/javascript">
-function AutoScroll(obj){
-    $(obj).find("ul:first").animate({
-            marginTop:"-25px"
-    },500,function(){
-            $(this).css({marginTop:"0px"}).find("p:first").appendTo(this);
-    });
-}
-$(document).ready(function(){
-setInterval('AutoScroll("#scrollDiv")',1000)
-});
-</script>
+
 </head>
 <body>
 	<input type="hidden" id='openid' value='${openId}'>
 	<input type="hidden" id='winLevel' value='${winLevel}'>
 	<input type="hidden" id='qrUrl' value='${qrUrl}'>
+	<input type="hidden" id='vtype' value='${vtype}'>
 	<div class="index">
-		
 		<div class="dan">
 			<div>
-				<div class="za ms-2 t_c">
+				<div class="za ms-2 t_c doudan">
 					<img class="jindan" src="../skin/images/jindan.png" alt="">
 					<img class="chuizi" src="../skin/images/chuizi.png" alt="">
 				</div>
@@ -82,6 +76,7 @@ setInterval('AutoScroll("#scrollDiv")',1000)
 		<div class="wenben">
 			<img src="../skin/images/wenben.png" alt="">
 			<p>关注“开心宝财富”公众号即可参与</p>
+			<p><a href="http://www.jinxinsenhui.com/smash/winning/list.do?openId=${openId}" ><font color="#FFDEAD">查看我的中奖纪录</font></a></p>
 		</div>	
 		<div class="jiangli">
 			<img src="../skin/images/bg02.png" alt="">
@@ -90,18 +85,26 @@ setInterval('AutoScroll("#scrollDiv")',1000)
 				<p><span>一等奖：</span><span>100元手机话费</span></p>
 				<p><span>二等奖：</span><span>50元手机话费</span></p>
 				<p><span>三等奖：</span><span>精品菜谱和铁锅</span></p>
-				<p><span>普照奖A：</span><span>50元现金红包</span></p>
+				<p><span>普照奖A：</span><span>小确幸30元现金兑换码</span></p>
 				<p class="ts">(平台注册后，账户可见，30日后可直接提现到个人银行卡)</p>
 				<p><span>普照奖B：</span><span>50元开心宝平台红包代金券</span></p>
 				<p class="ts">(不与平台其他活动共享，投资任意标的1万元以上可用)</p>
 			</div>
-			<div class="jiangli"><p><span>最新获奖用户</span></p></div>
-			<div class="neirong" id="scrollDiv">
-				<ul>
-				<c:forEach items="${winList}" var="p" varStatus="varStatus">
-				<p><span>恭喜用户"${fn:substring(p.phone, 0, 3)}******* "获得<c:if test="${p.winLevel==1}">特等奖</c:if><c:if test="${p.winLevel==2}">一等奖</c:if><c:if test="${p.winLevel==3}">二等奖</c:if><c:if test="${p.winLevel==4}">三等奖</c:if><c:if test="${p.winLevel==5}">普照奖A</c:if><c:if test="${p.winLevel==6}">普照奖B</c:if></span></p>
-				</c:forEach>
-				</ul>
+		</div>
+		<div class="jiangli">
+			<img src="../skin/images/222.png" alt="">
+			<div class="dowebok">
+			    <table width='100%'>
+			    	<tbody>
+			   	 	<c:forEach items="${winList}" var="p" varStatus="varStatus">
+			    		<tr>
+			    			<td>恭喜用户"${fn:substring(p.name, 0, 1)}** "，</td>
+			    			<td>手机号${fn:substring(p.phone, 0, 3)}******* </td>
+			    			<td>获得<c:if test="${p.winLevel==1}">特等奖</c:if><c:if test="${p.winLevel==2}">一等奖</c:if><c:if test="${p.winLevel==3}">二等奖</c:if><c:if test="${p.winLevel==4}">三等奖</c:if><c:if test="${p.winLevel==5}">普照奖A</c:if><c:if test="${p.winLevel==6}">普照奖B</c:if></td>
+			    		</tr>
+			    		</c:forEach>
+			    	</tbody>
+			    </table>
 			</div>
 		</div>	
 	</div>
@@ -165,7 +168,7 @@ setInterval('AutoScroll("#scrollDiv")',1000)
 		<img src="../skin/images/qrcode_ekxb.jpg" alt="">
 	</div>	
 	</c:if>
-<script type="text/javascript" src='../js/base.js'></script>
+<script type="text/javascript" src='../js/base1.js'></script>
 <script type="text/javascript" src='../js/jweixin-1.2.0.js'></script>
 <script>
 	wx.config({
@@ -180,13 +183,15 @@ setInterval('AutoScroll("#scrollDiv")',1000)
             'onMenuShareAppMessage'//分享到朋友圈
         ]
 	});
+	
 	wx.ready(function () {
 		 var link = window.location.href;
-	        var protocol = window.location.protocol;
-	        var host = window.location.host;
-	        //分享朋友圈
-	        wx.onMenuShareTimeline({
-	            title: '开心宝，迎春砸金蛋中大奖！',
+         var protocol = window.location.protocol;
+         var host = window.location.host;
+       
+         //分享朋友圈
+         wx.onMenuShareTimeline({
+	            title: '开心宝财富，砸蛋乐不停',
 	            link: link,
 	            imgUrl: protocol+'//'+host+'/skin/images/favicon.ico',// 自定义图标
 	            success: function (res) {//分享成功
@@ -207,8 +212,8 @@ setInterval('AutoScroll("#scrollDiv")',1000)
 	        });
 	        //分享给好友
 	        wx.onMenuShareAppMessage({
-	            title: '开心宝，迎春砸金蛋中大奖！', // 分享标题
-	            desc: '开心宝，迎春砸金蛋中大奖！', // 分享描述
+	            title: '开心宝财富，砸蛋乐不停', // 分享标题
+	            desc: '开心宝财富，砸蛋乐不停', // 分享描述
 	            link: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
 	            imgUrl: protocol+'//'+host+'/skin/images/favicon.ico',// 自定义图标
 	            type: 'link', // 分享类型,music、video或link，不填默认为link
@@ -231,7 +236,17 @@ setInterval('AutoScroll("#scrollDiv")',1000)
 	        wx.error(function (res) {
 	        });
     });
+
+	$(function(){
+	    $('.dowebok').liMarquee({
+	        direction: 'up', //(left | right | up | down)
+	        scrollamount:30,
+	        hoverstop:false
+	    });
+	    
+	});
 </script>	
+
 </body>
 </html>
 

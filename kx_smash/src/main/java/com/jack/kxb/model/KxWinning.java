@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="kx_winning")
@@ -18,6 +19,8 @@ public class KxWinning {
 	private Long winId;
 	private String createDt;
 	private int winLevel;
+	private String sdt;
+	private String edt;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -69,6 +72,22 @@ public class KxWinning {
 	}
 	public void setWinLevel(int winLevel) {
 		this.winLevel = winLevel;
+	}
+	
+	@Transient
+	public String getSdt() {
+		return sdt;
+	}
+	public void setSdt(String sdt) {
+		this.sdt = sdt;
+	}
+	
+	@Transient
+	public String getEdt() {
+		return edt;
+	}
+	public void setEdt(String edt) {
+		this.edt = edt;
 	}
 	
 	

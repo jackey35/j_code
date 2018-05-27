@@ -12,14 +12,23 @@
     doc.addEventListener('DOMContentLoaded', recalc, false);
 })(document, window);
 
+var doudan = setInterval('dandan()',2000);
+function dandan(){
+    console.log(1);
+    $('.dan .za').removeClass('doudan');
+    var num = Math.floor(Math.random()*5);
+    $('.dan .za').eq(num).addClass('doudan');
+}
+
 var openid = $('#openid').val();
+var vtype = $('#vtype').val();
 //winLevel 结果
 var winLevel = {
     1:['特等奖','苹果IphoneX256G手机一部'],
     2:['一等奖：','100元手机话费'],
     3:['二等奖：','50元手机话费'],
     4:['三等奖：','精品菜谱和铁锅'],
-    5:['普照奖A：','50元现金红包'],
+    5:['普照奖A：','小确幸30元现金兑换码'],
     6:['普照奖B：','50元开心宝平台红包代金券'],
 }
 
@@ -47,9 +56,10 @@ $('.za').click(function(event) { // 砸蛋事件
     setTimeout(function(){
         $(item).find('.jindan').attr('src','../skin/images/suidan.png');
     },150);
+    clearInterval(doudan);
     setTimeout(function(){
-        $.post('http://www.jinxinsenhui.com/smash/zha.do?openId='+openid,function(data){
-            $('.winLevel').removeClass('hide');
+        $.post('http://www.jinxinsenhui.com/smash/zha.do?openId='+openid+"&vtype="+vtype,function(data){
+            $('.result').removeClass('hide');
             if(data.httpStatus == 1){
             	   $('#winLevel').val(data.obj.winLevel);
                 $('#qrUrl').val(data.obj.qrUrl);
@@ -132,4 +142,5 @@ $('a.close').click(function(){
     $('.chuizi').removeClass('zadan').hide();
     $('.result-content > div').addClass('hide');
     $('.result-egg img').attr('src','../skin/images/zhongjiang.png');
+    doudan = setInterval('dandan()',2000);
 });
